@@ -1,64 +1,80 @@
-import LazyLoad from "react-lazy-load";
-import img from "../assets/about.webp";
 import Reveal from "./Reveal";
+import { FiCode, FiDatabase, FiLayers, FiTrendingUp } from "react-icons/fi";
+
+const valuePoints = [
+  {
+    icon: FiLayers,
+    title: "CMS builds",
+    description:
+      "WordPress and Grav websites that are easy to manage.",
+  },
+  {
+    icon: FiCode,
+    title: "Clean interfaces",
+    description:
+      "Responsive layouts, polished states and reusable components.",
+  },
+  {
+    icon: FiDatabase,
+    title: "Data-backed apps",
+    description:
+      "MongoDB, PostgreSQL, Mongoose and Prisma integrations.",
+  },
+  {
+    icon: FiTrendingUp,
+    title: "Business focus",
+    description:
+      "Clear offers, better trust and smoother user action.",
+  },
+];
 
 const About = () => {
   return (
-    <section className="py-16" id="about">
+    <section className="bg-slate-50 py-20 dark:bg-[#151822]" id="about">
       <div className="container mx-auto px-4 font-poppins">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-10">
-          <div className="w-full md:w-1/2 mb-8 md:mb-0 flex justify-center">
-            <LazyLoad>
-              <Reveal>
-                <img
-                  src={img}
-                  alt="Profile"
-                  className="rounded-full w-[300px] md:w-[400px] md:mx-0"
-                />
-              </Reveal>
-            </LazyLoad>
+        <div className="grid gap-12 lg:grid-cols-[0.95fr_1.05fr]">
+          <div>
+            <p className="mb-4 text-sm font-semibold uppercase tracking-[0.24em] text-[#7562e0]">
+              About
+            </p>
+            <h2 className="max-w-xl text-4xl font-bold leading-tight text-slate-950 dark:text-white lg:text-5xl">
+              Practical developer. Sharp interface. Reliable delivery.
+            </h2>
+            <Reveal>
+              <p className="mt-5 leading-8 text-slate-700 dark:text-gray-300">
+                I build service websites, content platforms, dashboards,
+                eCommerce flows and booking experiences.
+              </p>
+            </Reveal>
+            <Reveal>
+              <p className="mt-4 leading-8 text-slate-700 dark:text-gray-300">
+                My focus is simple: make it clear, fast and easy to use.
+              </p>
+            </Reveal>
           </div>
-          <div className="w-full md:w-1/2 font-light">
-            <div>
-              <h2 className="text-4xl font-bold mb-4 text-[#7562e0]">
-                About Me
-              </h2>
-            </div>
-            <Reveal>
-              <p className="text-gray-800 mb-4 dark:text-gray-300">
-                Hi, I'm Syed Shamim Hosan. From Dhaka, Bangladesh. Currently
-                pursuing my bachelors degree in Business Administration at the
-                National University. Alongside my academic studies, I have a
-                strong passion for web development. Which led me to complete a web development course at
-                <a
-                  href="https://www.programming-hero.com/" target="_blank" rel="noreferrer"
-                  className="text-[#7562e0] ml-2"
-                >
-                  programming hero
-                </a>
-                .
-              </p>
-            </Reveal>
-            <Reveal>
-              <p className="text-gray-800 mb-4 dark:text-gray-300">
-                I have a strong foundation in both front-end and back-end
-                technologies. In terms of front-end I have efficiency in
-                essential technologies such as HTML5, CSS3, Tailwind Javascript. I
-                have also hands on experience with popular framework such as
-                ReactJS & NextJS. Also Redux for state management and authentication by Firebase.
-              </p>
-            </Reveal>
-            <Reveal>
-              <p className="text-gray-800 dark:text-gray-300">
-                On the back-end side, I'm proficient in languages like
-                JavaScript (Node.js), and frameworks like Express. I also have a
-                good understanding of databases such as MongoDB. This knowledge
-                allows me to implement effective database management solutions.
-                One of my biggest strength is my exceptional level of patience.
-                I am continuously learning and exploring new technologies to
-                stay up to date with industry trends.
-              </p>
-            </Reveal>
+
+          <div className="divide-y divide-slate-200 border-y border-slate-200 dark:divide-white/10 dark:border-white/10">
+            {valuePoints.map((point) => {
+              const Icon = point.icon;
+
+              return (
+                <Reveal key={point.title}>
+                  <div className="grid gap-4 py-6 sm:grid-cols-[56px_1fr]">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-md bg-white text-[#7562e0] shadow-sm dark:bg-white/10">
+                      <Icon className="text-xl" />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-semibold text-slate-950 dark:text-white">
+                        {point.title}
+                      </h3>
+                      <p className="mt-2 leading-7 text-slate-600 dark:text-gray-300">
+                        {point.description}
+                      </p>
+                    </div>
+                  </div>
+                </Reveal>
+              );
+            })}
           </div>
         </div>
       </div>

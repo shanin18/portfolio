@@ -1,12 +1,22 @@
-import Reveal from "./Reveal";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { FcNext, FcPrevious } from "react-icons/fc";
+import { FiExternalLink, FiGithub } from "react-icons/fi";
 import LazyLoad from "react-lazy-load";
 
-const ProjectCard = ({ project }) => {
+const ProjectCard = ({ project, index = 0 }) => {
   const [fold, setFold] = useState(false);
-  const { images, title, summery, liveLink, clientSide, serverSide } = project;
+  const {
+    images,
+    title,
+    summery,
+    liveLink,
+    clientSide,
+    serverSide,
+    technology,
+    impact,
+    stack = [],
+  } = project;
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -33,109 +43,167 @@ const ProjectCard = ({ project }) => {
     const newIndex = currentIndex + direction;
     setCurrentIndex((newIndex + images.length) % images.length);
   };
+
+  const imageFirst = index % 2 === 0;
+
   return (
-    <Reveal>
-      <div className="border dark:border-[#7562e0] rounded-md w-[295px] md:w-[490px] overflow-hidden">
-        <div className="relative h-[180px] md:h-[240px]">
-          {images ? (
-            images?.map((slide, index) => (
-              <motion.div
-                key={index}
-                className={`overflow-hidden absolute top-0 left-${
-                  index === currentIndex ? "0" : "w-full"
-                } w-full h-full`}
-                initial={index === currentIndex ? "center" : "enter"}
-                animate={index === currentIndex ? "center" : "exit"}
-                variants={slideVariants}
-                transition={{ duration: 0.5 }}
-              >
-                <LazyLoad className="h-[180px] md:h-[240px]">
-                  <img
-                    src={slide}
-                    alt="project Image"
-                    className="hover:scale-110 duration-300 w-full min-h-full"
-                  />
-                </LazyLoad>
-              </motion.div>
-            ))
-          ) : (
-            <div className="skeleton h-auto w-full"></div>
-          )}
-          <button
-            className="absolute top-1/2 left-2 transform -translate-y-1/2 focus:outline-none p-1 bg-white  border rounded-full"
-            onClick={() => paginate(-1)}
-          >
-            <FcPrevious className="text-sm"></FcPrevious>
-          </button>
-          <button
-            className="absolute top-1/2 right-2 transform -translate-y-1/2 focus:outline-none p-1 bg-white border  rounded-full"
-            onClick={() => paginate(1)}
-          >
-            <FcNext className="text-sm"></FcNext>
-          </button>
+    <motion.article
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.45 }}
+      className="grid gap-8 border-b border-slate-200 py-10 last:border-0 dark:border-white/10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center"
+    >
+      <div className={`${imageFirst ? "lg:order-1" : "lg:order-2"}`}>
+        <motion.div
+          whileHover={{ scale: 0.985 }}
+          transition={{ type: "spring", stiffness: 240, damping: 22 }}
+          className="relative overflow-hidden rounded-md bg-slate-100 shadow-sm dark:bg-white/5"
+        >
+          <div className="relative aspect-[16/10]">
+            {images ? (
+              images?.map((slide, index) => (
+                <motion.div
+                  key={index}
+                  className="absolute left-0 top-0 h-full w-full overflow-hidden"
+                  initial={index === currentIndex ? "center" : "enter"}
+                  animate={index === currentIndex ? "center" : "exit"}
+                  variants={slideVariants}
+                  transition={{ duration: 0.5 }}
+                >
+                  <LazyLoad className="h-full">
+                    <img
+                      src={slide}
+                      alt={`${title} project preview`}
+                      loading="lazy"
+                      decoding="async"
+                      sizes="(min-width: 1024px) 45vw, 100vw"
+                      className="h-full w-full object-cover duration-500 hover:scale-105"
+                    />
+                  </LazyLoad>
+                </motion.div>
+              ))
+            ) : (
+              <div className="skeleton h-auto w-full"></div>
+            )}
+            <button
+              className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full border border-white/70 bg-white/90 p-2 shadow-sm focus:outline-none"
+              onClick={() => paginate(-1)}
+              aria-label={`Previous ${title} preview`}
+            >
+              <FcPrevious className="text-sm"></FcPrevious>
+            </button>
+            <button
+              className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full border border-white/70 bg-white/90 p-2 shadow-sm focus:outline-none"
+              onClick={() => paginate(1)}
+              aria-label={`Next ${title} preview`}
+            >
+              <FcNext className="text-sm"></FcNext>
+            </button>
+          </div>
+        </motion.div>
+      </div>
+
+      <div className={`${imageFirst ? "lg:order-2" : "lg:order-1"}`}>
+        <div className="flex items-start justify-between gap-5">
+          <div>
+            <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-[#7562e0]">
+              {technology}
+            </p>
+            <h3 className="text-3xl font-bold text-slate-950 dark:text-white lg:text-4xl">
+              {title}
+            </h3>
+          </div>
+          <span className="hidden text-5xl font-bold text-slate-100 dark:text-white/5 sm:block">
+            {String(index + 1).padStart(2, "0")}
+          </span>
         </div>
 
-        <div className="p-5">
-          <h2 className="font-semibold text-2xl mb-4 dark:text-[#7562e0]">
-            {title}
-          </h2>
-          <div>
-            {summery.length > 78 ? (
-              <div>
-                {!fold ? (
-                  <p className="text-gray-700 dark:text-white text-sm mb-4">
-                    {summery.substring(0, 78)} ...
-                    <button
-                      className="text-[#7562e0]"
-                      onClick={() => setFold(!fold)}
-                    >
-                      see more
-                    </button>
-                  </p>
-                ) : (
-                  <p className="text-gray-700 dark:text-white text-sm mb-4">
-                    {summery} ...
-                    <button
-                      className="text-[#7562e0]"
-                      onClick={() => setFold(!fold)}
-                    >
-                      see less
-                    </button>
-                  </p>
-                )}
-              </div>
-            ) : (
-              <p className="text-gray-700 dark:text-white text-sm mb-4">
-                {summery}
-              </p>
-            )}
-          </div>
+        {impact && (
+          <p className="mt-5 max-w-2xl text-xl font-semibold leading-8 text-slate-900 dark:text-white">
+            {impact}
+          </p>
+        )}
 
-          <div className="flex flex-wrap gap-3">
-            <button className="font-poppins border border-[#7562e0] px-4 py-1 rounded-md text-[#7562e0] hover:text-white hover:bg-[#7562e0] ease-in-out transition-all duration-200 hover:shadow-neon">
-              <a href={liveLink} target="_blank" rel="noreferrer">
-                Live
-              </a>
-            </button>
-            {clientSide && (
-              <button className="font-poppins border border-[#7562e0] px-4 py-1 rounded-md text-[#7562e0] hover:text-white hover:bg-[#7562e0] ease-in-out transition-all duration-200 hover:shadow-neon">
-                <a href={clientSide} target="_blank" rel="noreferrer">
-                  Client
-                </a>
-              </button>
-            )}
+        <div>
+          {summery.length > 135 ? (
+            <div>
+              {!fold ? (
+                <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-600 dark:text-gray-300">
+                  {summery.substring(0, 135)} ...
+                  <button
+                    className="ml-1 font-medium text-[#7562e0]"
+                    onClick={() => setFold(!fold)}
+                  >
+                    see more
+                  </button>
+                </p>
+              ) : (
+                <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-600 dark:text-gray-300">
+                  {summery} ...
+                  <button
+                    className="ml-1 font-medium text-[#7562e0]"
+                    onClick={() => setFold(!fold)}
+                  >
+                    see less
+                  </button>
+                </p>
+              )}
+            </div>
+          ) : (
+            <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-600 dark:text-gray-300">
+              {summery}
+            </p>
+          )}
+        </div>
 
-            {serverSide && (
-              <button className="font-poppins border border-[#7562e0] px-4 py-1 rounded-md text-[#7562e0] hover:text-white hover:bg-[#7562e0] ease-in-out transition-all duration-200 hover:shadow-neon">
-                <a href={serverSide} target="_blank" rel="noreferrer">
-                  Server
-                </a>
-              </button>
-            )}
-          </div>
+        <div className="mt-6 flex flex-wrap gap-2">
+          {stack.map((item) => (
+            <span
+              key={item}
+              className="rounded-full border border-slate-200 px-3 py-1 text-xs font-medium text-slate-600 dark:border-white/10 dark:text-gray-300"
+            >
+              {item}
+            </span>
+          ))}
+        </div>
+
+        <div className="mt-7 flex flex-wrap gap-3">
+          <a
+            href={liveLink}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 rounded-md bg-slate-950 px-4 py-2 font-poppins text-sm font-medium text-white transition hover:bg-[#7562e0] dark:bg-white dark:text-slate-950 dark:hover:bg-[#7562e0] dark:hover:text-white"
+          >
+            <FiExternalLink />
+            View live
+          </a>
+          {clientSide && (
+            <a
+              href={clientSide}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 rounded-md border border-slate-200 px-4 py-2 font-poppins text-sm font-medium text-slate-700 transition hover:border-[#7562e0] hover:text-[#7562e0] dark:border-white/10 dark:text-gray-300"
+            >
+              <FiGithub />
+              Client
+            </a>
+          )}
+
+          {serverSide && (
+            <a
+              href={serverSide}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 rounded-md border border-slate-200 px-4 py-2 font-poppins text-sm font-medium text-slate-700 transition hover:border-[#7562e0] hover:text-[#7562e0] dark:border-white/10 dark:text-gray-300"
+            >
+              <FiGithub />
+              Server
+            </a>
+          )}
         </div>
       </div>
-    </Reveal>
+    </motion.article>
   );
 };
 

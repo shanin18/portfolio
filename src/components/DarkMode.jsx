@@ -28,19 +28,18 @@ const DarkMode = () => {
     }
   }, [darkMode]);
   return (
-    <div>
+    <button
+      type="button"
+      onClick={toggleDarkMode}
+      className="flex h-10 w-10 items-center justify-center rounded-md border border-slate-200 bg-slate-50 text-[#7562e0] transition hover:border-[#7562e0] dark:border-white/10 dark:bg-white/5"
+      aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+    >
       {darkMode ? (
-        <BiMoon
-          className="cursor-pointer bg-[#7562e01e] w-7 h-7 lg:w-9 lg:h-9 p-1 lg:p-2 rounded-full text-[#7562e0]"
-          onClick={toggleDarkMode}
-        ></BiMoon>
+        <BiMoon className="text-xl"></BiMoon>
       ) : (
-        <BsSun
-          className="cursor-pointer w-7 h-7 lg:w-9 lg:h-9 p-1 lg:p-2 rounded-full text-[#7562e0] bg-[#7562e01e]"
-          onClick={toggleDarkMode}
-        ></BsSun>
+        <BsSun className="text-xl"></BsSun>
       )}
-    </div>
+    </button>
   );
 };
 

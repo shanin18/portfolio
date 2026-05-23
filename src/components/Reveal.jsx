@@ -21,7 +21,7 @@ const Reveal = ({ children }) => {
       ref={ref}
       style={{
         position: "relative",
-        width: "fit-content",
+        width: "100%",
         overflow: "hidden",
       }}
     >

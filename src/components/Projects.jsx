@@ -16,28 +16,35 @@ const projects = [
     title: "Yachtease",
     images: [yachtImg],
     summery:
-      "Yachtease is aimed to be a all in one platform for Super yachts, Yacht suppliers & agencies and yacht crew. To make their lives and jobs easier in as many aspects as possible.",
+      "A platform concept for yacht crews, suppliers and agencies to manage key workflows from one clear digital experience.",
     liveLink: "https://yachtease.vercel.app",
     technology: "React",
+    impact: "Multi-sided platform experience for a complex service ecosystem.",
+    stack: ["React", "Responsive UI", "Platform UX"],
   },
   {
     id: 2,
     title: "My Ops",
     images: [opsImg],
-    summery: "My Ops is a Real estate business & expense management system",
+    summery:
+      "A real estate operations interface designed to organize business activity, expenses and day-to-day management tasks.",
     liveLink: "https://my-ops-react.vercel.app",
     technology: "React",
+    impact: "Operational dashboard for clearer tracking and expense visibility.",
+    stack: ["React", "Dashboard", "Business tools"],
   },
   {
     id: 3,
     title: "ShopEase",
     images: [shopeaseImg],
     summery:
-      "ShopEase is an innovative and user-friendly eCommerce platform that simplifies shopping for customers and sellers.",
+      "An eCommerce platform experience focused on product discovery, shopping flow and seller-friendly structure.",
     liveLink: "https://shopease-gamma.vercel.app",
     clientSide: "https://github.com/shanin18/shopease",
     serverSide: "https://github.com/shanin18/shopease-server",
     technology: "React",
+    impact: "Shopping flow designed around both customer and seller needs.",
+    stack: ["React", "Node.js", "MongoDB"],
   },
   {
     id: 4,
@@ -52,11 +59,13 @@ const projects = [
       "https://i.ibb.co/0cCyZC9/img7.webp",
     ],
     summery:
-      "Captured Visions is a full-stack photography school website built using MERN technology, with authentication powered by Firebase.",
+      "A full-stack photography school website with authentication, course browsing and a structured learning experience.",
     liveLink: "https://capturedvisions-61b6b.web.app/",
     clientSide: "https://github.com/shanin18/Captured-Visions-client",
     serverSide: "https://github.com/shanin18/Captured-Visions-server",
     technology: "React",
+    impact: "Learning platform experience with auth and course workflows.",
+    stack: ["React", "MERN", "Firebase"],
   },
   {
     id: 5,
@@ -69,55 +78,68 @@ const projects = [
       "https://i.ibb.co/fD7MCWX/5.webp",
     ],
     summery:
-      "Lodgify efficiently optimizes booking management and enhances guest experiences for hotels and vacation rentals.",
+      "A booking management interface for hotels and vacation rentals, built to make guest and reservation workflows easier to manage.",
     liveLink: "https://y-lyart-seven.vercel.app/",
     clientSide: "https://github.com/shanin18/lodgify-hotel-management",
     technology: "Next.js",
+    impact: "Booking-focused product flow for rental and guest management.",
+    stack: ["Next.js", "Booking UX", "Dashboard"],
   },
   {
     id: 6,
     title: "Shashh",
     images: [shashhImg],
     summery:
-      "Shashh is a dynamic platform designed to connect billboard owners with clients seeking to rent advertising spaces or run impactful campaigns. It streamlines the process of showcasing ads, enabling advertisers to easily reach out to billboard owners and optimize their brand visibility.",
+      "A marketing marketplace concept that connects billboard owners with advertisers looking to rent ad space and run campaigns.",
     liveLink: "https://shashh.netlify.app",
     technology: "HTML/CSS",
+    impact: "Marketplace flow built around campaign visibility and lead generation.",
+    stack: ["HTML", "CSS", "Landing page"],
   },
   {
     id: 7,
     title: "Box Hub",
     images: [boxImg],
     summery:
-      "Box Hub is a convenient platform designed to receive deliveries on behalf of users when they are unavailable. Users can easily schedule a date and time for delivery through Calendly and complete the service with a secure payment, ensuring hassle-free package management.",
+      "A service website for delivery handling, with scheduling and payment-oriented touchpoints for a smoother customer journey.",
     liveLink: "https://box-hub.vercel.app/",
     technology: "HTML/CSS",
+    impact: "Service journey shaped around scheduling, payment and trust.",
+    stack: ["HTML", "CSS", "Service UX"],
   },
   {
     id: 8,
     title: "Freye",
     images: [freyeImg],
     summery:
-      "Freye is an innovative platform offering a wide range of glasses, sunglasses, and lens accessories. Users can try products online, provide their prescription, and receive personalized recommendations for the most suitable options, including frames tailored to their needs.",
+      "An eyewear product experience for browsing glasses, sunglasses and lens options with a more guided selection flow.",
     liveLink: "https://fahadrazooki.vercel.app/",
     technology: "HTML/CSS",
+    impact: "Product-led experience for eyewear browsing and guided selection.",
+    stack: ["HTML", "CSS", "Product UX"],
   },
   {
     id: 9,
     title: "Flute N Feather",
     images: [fluteImg],
     summery:
-      "Flute keeps children engaged in a fun, interactive experience allowing them to dive deep into subjects until they get it.",
+      "An education-focused website concept with a friendly interface for helping children stay engaged with learning content.",
     liveLink: "https://flute-n-feather.vercel.app",
     technology: "HTML/CSS",
+    impact: "Child-friendly education interface with clear content structure.",
+    stack: ["HTML", "CSS", "Education"],
   },
   {
     id: 10,
     title: "Quiz Game",
     images: ["https://i.ibb.co/88DHt5B/Screenshot-2024-08-04-200334.png"],
-    summery: "This is a mcq quiz game made with React",
+    summery:
+      "A React quiz game with interactive question flow, state-driven feedback and simple scoring behavior.",
     liveLink: "https://mcq-game-nine.vercel.app",
     clientSide: "https://github.com/shanin18/mcq-game",
     technology: "React",
+    impact: "Interactive quiz flow with clear feedback and scoring.",
+    stack: ["React", "Game UI", "State"],
   },
   {
     id: 11,
@@ -127,10 +149,12 @@ const projects = [
       "https://i.ibb.co/SR67GDz/Screenshot-2024-08-15-012529.webp",
     ],
     summery:
-      "A simple e-commerce product listing page built with React.js, Vite, Tailwind CSS, and Axios. This project demonstrates the ability to fetch, display, filter, search, and sort product data from the FakeStoreAPI.",
+      "A product listing experience that fetches API data and supports searching, filtering and sorting for easier product discovery.",
     liveLink: "https://simple-ecommerce-gamma.vercel.app",
     clientSide: "https://github.com/shanin18/simple-ecommerce",
     technology: "React",
+    impact: "Product discovery interface with search, sort and filtering.",
+    stack: ["React", "Vite", "Axios"],
   },
   {
     id: 12,
@@ -144,11 +168,13 @@ const projects = [
       "https://i.ibb.co/K59kbqQ/img6.webp",
     ],
     summery:
-      "This project showcases an interactive website dedicated to action figure toys.",
+      "A full-stack toy catalog experience for browsing products and managing content around an action figure collection.",
     liveLink: "https://toy-paradise-2e411.web.app/",
     clientSide: "https://github.com/shanin18/toy-paradise-client",
     serverSide: "https://github.com/shanin18/toy-paradise-server",
     technology: "React",
+    impact: "Catalog experience for product discovery and content management.",
+    stack: ["React", "Node.js", "MongoDB"],
   },
   {
     id: 13,
@@ -163,11 +189,13 @@ const projects = [
       "https://i.ibb.co/ZXWDkyr/img7.webp",
     ],
     summery:
-      "Savory Selection is dedicated exclusively to the rich culinary heritage of Bangladesh, showcasing a wide array of traditional and contemporary dishes that will tantalize your taste buds.",
+      "A cuisine-focused web experience for showcasing Bangladeshi dishes with rich browsing and content presentation patterns.",
     liveLink: "https://react-savory-selections.web.app/",
     clientSide: "https://github.com/shanin18/Savory-selection-client",
     serverSide: "https://github.com/shanin18/Savory-selection-server",
     technology: "React",
+    impact: "Content platform with strong category-based browsing patterns.",
+    stack: ["React", "MERN", "Firebase"],
   },
   {
     id: 14,
@@ -180,11 +208,13 @@ const projects = [
       "https://i.ibb.co/BGJzvsJ/4.webp",
     ],
     summery:
-      "Ticket booking platform is an online service that facilitates the purchase and reservation of tickets for various events, activities, or services.",
+      "A ticket booking dashboard experience for browsing events, managing reservations and supporting purchase workflows.",
     liveLink: "https://ticket-booking-dashboard-rho.vercel.app",
     clientSide: "https://github.com/shanin18/ticket-booking",
     serverSide: "https://github.com/shanin18/ticket-booking-server",
     technology: "React",
+    impact: "Reservation workflow for events, activities and dashboard actions.",
+    stack: ["React", "Node.js", "Booking"],
   },
 ];
 
@@ -215,39 +245,46 @@ const Projects = () => {
   };
 
   return (
-    <section className="py-16 dark:bg-[#1a1a29]" id="projects">
-      <div className="container mx-auto font-poppins">
-        <div className="text-center">
-          <h2 className="text-3xl lg:text-4xl font-bold text-[#7562e0] mb-4">
-            Projects
-          </h2>
-          <p className="text-gray-700 mb-8 dark:text-gray-300 mx-2">
-            I have worked on many projects as a Web Developer,
-            <br /> here are a few of my live, real-world projects
-          </p>
-          <div className="flex justify-center gap-4 mb-6 flex-wrap">
-            {filterOptions.map((option) => (
-              <button
-                key={option}
-                onClick={() => handleFilter(option)}
-                className={`px-4 py-2 rounded-lg border ${
-                  activeFilter === option
-                    ? "bg-[#7562e0] text-white border-[#7562e0]"
-                    : "bg-white text-[#7562e0] border-[#7562e0] dark:bg-gray-800 dark:text-gray-300"
-                } transition duration-300 hover:bg-[#7562e0] hover:text-white`}
-              >
-                {option}
-              </button>
-            ))}
+    <section className="bg-slate-50 py-20 dark:bg-[#151822]" id="projects">
+      <div className="container mx-auto px-4 font-poppins">
+        <div className="grid gap-8 border-b border-slate-200 pb-10 dark:border-white/10 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
+          <div>
+            <p className="mb-4 text-sm font-semibold uppercase tracking-[0.24em] text-[#7562e0]">
+              Work
+            </p>
+            <h2 className="text-4xl font-bold leading-tight text-slate-950 dark:text-white lg:text-5xl">
+              Selected projects. Real interfaces.
+            </h2>
+          </div>
+          <div>
+            <p className="max-w-2xl text-slate-700 dark:text-gray-300">
+              Websites, dashboards, eCommerce, booking systems and content
+              platforms.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              {filterOptions.map((option) => (
+                <button
+                  key={option}
+                  onClick={() => handleFilter(option)}
+                  className={`rounded-full border px-4 py-2 text-sm font-medium ${
+                    activeFilter === option
+                      ? "border-slate-950 bg-slate-950 text-white dark:border-white dark:bg-white dark:text-slate-950"
+                      : "border-slate-200 bg-white text-slate-700 dark:border-white/10 dark:bg-white/5 dark:text-gray-300"
+                  } transition duration-300 hover:border-[#7562e0] hover:text-[#7562e0]`}
+                >
+                  {option}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
-        <div className="flex flex-wrap justify-center gap-6 mx-2">
+        <div>
           {filteredProjects.length > 0 ? (
             filteredProjects.map((project, idx) => (
-              <ProjectCard key={idx} project={project} />
+              <ProjectCard key={idx} project={project} index={idx} />
             ))
           ) : (
-            <p className="text-center text-gray-500 dark:text-gray-400">
+            <p className="py-10 text-center text-gray-500 dark:text-gray-400">
               No projects found for {activeFilter}.
             </p>
           )}
