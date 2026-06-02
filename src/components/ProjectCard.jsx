@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { FcNext, FcPrevious } from "react-icons/fc";
 import { FiExternalLink, FiGithub } from "react-icons/fi";
 import LazyLoad from "react-lazy-load";
 
@@ -18,33 +17,8 @@ const ProjectCard = ({ project, index = 0 }) => {
     stack = [],
   } = project;
 
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const slideVariants = {
-    enter: (direction) => {
-      return {
-        x: direction > 0 ? "100%" : "-100%",
-        opacity: 0,
-      };
-    },
-    center: {
-      x: 0,
-      opacity: 1,
-    },
-    exit: (direction) => {
-      return {
-        x: direction < 0 ? "100%" : "-100%",
-        opacity: 0,
-      };
-    },
-  };
-
-  const paginate = (direction) => {
-    const newIndex = currentIndex + direction;
-    setCurrentIndex((newIndex + images.length) % images.length);
-  };
-
   const imageFirst = index % 2 === 0;
+  const thumbnail = images?.[0];
 
   return (
     <motion.article
@@ -61,45 +35,20 @@ const ProjectCard = ({ project, index = 0 }) => {
           className="relative overflow-hidden rounded-md bg-slate-100 shadow-sm dark:bg-white/5"
         >
           <div className="relative aspect-[16/10]">
-            {images ? (
-              images?.map((slide, index) => (
-                <motion.div
-                  key={index}
-                  className="absolute left-0 top-0 h-full w-full overflow-hidden"
-                  initial={index === currentIndex ? "center" : "enter"}
-                  animate={index === currentIndex ? "center" : "exit"}
-                  variants={slideVariants}
-                  transition={{ duration: 0.5 }}
-                >
-                  <LazyLoad className="h-full">
-                    <img
-                      src={slide}
-                      alt={`${title} project preview`}
-                      loading="lazy"
-                      decoding="async"
-                      sizes="(min-width: 1024px) 45vw, 100vw"
-                      className="h-full w-full object-cover duration-500 hover:scale-105"
-                    />
-                  </LazyLoad>
-                </motion.div>
-              ))
+            {thumbnail ? (
+              <LazyLoad className="h-full">
+                <img
+                  src={thumbnail}
+                  alt={`${title} project preview`}
+                  loading="lazy"
+                  decoding="async"
+                  sizes="(min-width: 1024px) 45vw, 100vw"
+                  className="h-full w-full object-cover duration-500 hover:scale-105"
+                />
+              </LazyLoad>
             ) : (
               <div className="skeleton h-auto w-full"></div>
             )}
-            <button
-              className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full border border-white/70 bg-white/90 p-2 shadow-sm focus:outline-none"
-              onClick={() => paginate(-1)}
-              aria-label={`Previous ${title} preview`}
-            >
-              <FcPrevious className="text-sm"></FcPrevious>
-            </button>
-            <button
-              className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full border border-white/70 bg-white/90 p-2 shadow-sm focus:outline-none"
-              onClick={() => paginate(1)}
-              aria-label={`Next ${title} preview`}
-            >
-              <FcNext className="text-sm"></FcNext>
-            </button>
           </div>
         </motion.div>
       </div>

@@ -7,10 +7,56 @@ import shashhImg from "../assets/shashh.png";
 import boxImg from "../assets/box.png";
 import freyeImg from "../assets/freye.png";
 import fluteImg from "../assets/flute.png";
+import gadgetGalleryImg from "../assets/gadgetgallery.png";
+import eyeSolutionsImg from "../assets/eye-solutions.png";
 
 const filterOptions = ["All", "HTML/CSS", "React", "Next.js"];
 
 const projects = [
+  {
+    id: 15,
+    title: "GadgetGallery",
+    images: [gadgetGalleryImg],
+    summery:
+      "A published ecommerce platform for a Bangladesh-based gadget and audio accessories store with storefront, catalog, cart, wishlist, checkout, reviews, image uploads, order tracking and a full admin dashboard.",
+    liveLink: "https://www.gadgetgallery.tech",
+    technology: "Next.js",
+    impact:
+      "Full ecommerce operation with customer shopping flow, inventory control, coupons, notifications and admin management.",
+    stack: [
+      "Next.js",
+      "TypeScript",
+      "Prisma",
+      "PostgreSQL",
+      "NextAuth",
+      "Cloudinary",
+      "Zustand",
+      "Vercel",
+    ],
+  },
+  {
+    id: 16,
+    title: "Eye Solutions",
+    images: [eyeSolutionsImg],
+    summery:
+      "A clinic and optical management platform that connects appointment booking, doctor consultations, prescriptions, product sales, inventory tracking, billing and patient history in one workflow.",
+    liveLink: "https://eye-solutions.vercel.app",
+    technology: "Next.js",
+    impact:
+      "Connected care workflow for clinics and optical businesses, from patient booking to inventory and billing visibility.",
+    stack: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Prisma",
+      "PostgreSQL",
+      "Neon",
+      "Tailwind CSS",
+      "Cloudinary",
+      "Nodemailer",
+      "Vercel",
+    ],
+  },
   {
     id: 1,
     title: "Yachtease",
