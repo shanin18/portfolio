@@ -9,7 +9,7 @@ const highlights = [
 ];
 
 const metrics = [
-  { value: "200+", label: "Sites built" },
+  { value: "50+", label: "Sites built" },
   { value: "3+", label: "Years experience" },
   { value: "6+", label: "Core technologies" },
 ];
@@ -21,7 +21,7 @@ const Hero = () => {
         <div>
           <Reveal>
             <p className="mb-5 text-sm font-semibold uppercase tracking-[0.24em] text-[#7562e0]">
-              200+ sites. 3+ years.
+              50+ sites. 3+ years.
             </p>
           </Reveal>
           <Reveal>
