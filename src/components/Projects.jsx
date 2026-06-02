@@ -1,14 +1,14 @@
 import { useState } from "react";
 import ProjectCard from "./ProjectCard";
-import yachtImg from "../assets/yacht.png";
-import opsImg from "../assets/my-ops.png";
-import shopeaseImg from "../assets/shopease.png";
-import shashhImg from "../assets/shashh.png";
-import boxImg from "../assets/box.png";
-import freyeImg from "../assets/freye.png";
-import fluteImg from "../assets/flute.png";
-import gadgetGalleryImg from "../assets/gadgetgallery.png";
-import eyeSolutionsImg from "../assets/eye-solutions.png";
+import yachtImg from "../assets/thumbs/yacht-thumb.jpg";
+import opsImg from "../assets/thumbs/my-ops-thumb.jpg";
+import shopeaseImg from "../assets/thumbs/shopease-thumb.jpg";
+import shashhImg from "../assets/thumbs/shashh-thumb.jpg";
+import boxImg from "../assets/thumbs/box-thumb.jpg";
+import freyeImg from "../assets/thumbs/freye-thumb.jpg";
+import fluteImg from "../assets/thumbs/flute-thumb.jpg";
+import gadgetGalleryImg from "../assets/thumbs/gadgetgallery-thumb.jpg";
+import eyeSolutionsImg from "../assets/thumbs/eye-solutions-thumb.jpg";
 
 const filterOptions = ["All", "HTML/CSS", "React", "Next.js"];
 
