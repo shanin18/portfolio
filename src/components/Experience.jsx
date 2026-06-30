@@ -1,111 +1,179 @@
-import Reveal from "./Reveal";
+import { useRef, useEffect } from "react";
 import { motion } from "framer-motion";
-import { FiBriefcase } from "react-icons/fi";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Reveal from "./Reveal";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const experiences = [
   {
     company: "Spritztech",
     role: "Frontend Developer",
-    employment: "Full-time",
-    duration: "Feb 2025 - Present · 1 yr 4 mos",
-    location: "On-site",
+    type: "Full-time · On-site",
+    duration: "Feb 2025 – Present",
+    tag: "Current",
+    color: "from-purple-500 to-fuchsia-500",
+    glow: "rgba(168,85,247,0.25)",
     points: [
-      "Helped the team ship stable frontend updates with clean, reusable UI work.",
-      "Worked closely with teammates to turn product needs into clear user flows.",
-      "Improved consistency across pages so users experienced a smoother product.",
-      "Supported business goals by making features easier to use, maintain and launch.",
+      "Shipped stable frontend updates with clean, reusable UI components across multiple product surfaces.",
+      "Collaborated with cross-functional teams to translate product requirements into polished user flows.",
+      "Improved page consistency and UX coherence, reducing user friction across key workflows.",
+      "Supported faster feature launches by maintaining a well-structured, maintainable codebase.",
     ],
   },
   {
     company: "Softvence Agency",
     role: "Frontend Developer",
-    employment: "Full-time",
-    duration: "Aug 2024 - Jul 2025 · 1 yr",
-    location: "Dhaka, Bangladesh · On-site",
+    type: "Full-time · On-site",
+    duration: "Aug 2024 – Jul 2025 · 1 yr",
+    tag: "Agency",
+    color: "from-cyan-500 to-blue-500",
+    glow: "rgba(6,182,212,0.25)",
     points: [
-      "Collaborated with designers, developers and clients to deliver polished websites.",
-      "Helped agency projects move faster by converting requirements into reliable UI.",
-      "Improved client-facing pages with cleaner structure, responsive behavior and trust-focused design.",
-      "Contributed to business value by supporting faster launches and better presentation for client brands.",
+      "Collaborated with designers, developers and clients to deliver polished client websites on schedule.",
+      "Accelerated project velocity by converting requirements into reliable, responsive UI components.",
+      "Improved client-facing pages with cleaner structure, responsive layouts, and trust-focused design.",
+      "Enabled faster brand launches and better client presentation through improved delivery standards.",
     ],
   },
   {
-    company: "AAK TELE-SCIENCE, INC.",
+    company: "AAK Tele-Science, Inc.",
     role: "MERN Stack Developer",
-    employment: "Remote",
-    duration: "Aug 2023 - Nov 2023 · 4 mos",
-    location: "United States · Remote",
+    type: "Remote · Contract",
+    duration: "Aug 2023 – Nov 2023 · 4 mos",
+    tag: "Remote",
+    color: "from-amber-500 to-orange-500",
+    glow: "rgba(245,158,11,0.25)",
     points: [
-      "Built full-stack features across frontend, backend and database layers.",
-      "Collaborated remotely with the team to understand requirements and deliver updates.",
-      "Supported product development with React, Node.js and MongoDB-based implementation.",
-      "Helped improve delivery speed by handling both interface and API-related tasks.",
+      "Built full-stack features spanning React frontend, Node.js backend, and MongoDB database layers.",
+      "Collaborated asynchronously with a US-based team to understand requirements and ship updates.",
+      "Handled both interface and API-related tasks, improving delivery speed across the stack.",
+      "Contributed to product development with React, Node.js, Express and MongoDB implementations.",
     ],
   },
 ];
 
-const Experience = () => {
-  return (
-    <section className="bg-white py-20 dark:bg-[#0f1117]" id="experience">
-      <div className="container mx-auto px-4 font-poppins">
-        <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
+const ExperienceCard = ({ company, role, type, duration, tag, color, glow, points, index }) => (
+  <Reveal delay={index * 0.1}>
+    <motion.div
+      whileHover={{ x: 6 }}
+      transition={{ type: "spring", stiffness: 260, damping: 24 }}
+      className="relative pl-10"
+    >
+      {/* Timeline dot */}
+      <div
+        className={`absolute -left-[5px] top-6 h-2.5 w-2.5 rounded-full bg-gradient-to-br ${color} ring-4 ring-[#080810]`}
+        style={{ boxShadow: `0 0 12px ${glow}` }}
+      />
+
+      {/* Card */}
+      <div className="glass-card rounded-2xl p-6 transition-all duration-300 hover:border-white/[0.12]" style={{ boxShadow: `0 0 0 1px rgba(255,255,255,0.05)` }}>
+        {/* Header */}
+        <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
-            <p className="mb-4 text-sm font-semibold uppercase tracking-[0.24em] text-[#7562e0]">
-              Experience
+            <div className="flex items-center gap-3">
+              <h3 className="font-display text-xl font-bold text-white">{company}</h3>
+              <span
+                className={`rounded-full bg-gradient-to-r ${color} px-2.5 py-0.5 font-body text-[10px] font-bold uppercase tracking-wider text-white`}
+              >
+                {tag}
+              </span>
+            </div>
+            <p className="mt-1 font-body text-sm font-medium text-white/60">{role}</p>
+            <p className="mt-0.5 font-body text-xs text-white/35">{type}</p>
+          </div>
+          <span className="shrink-0 rounded-full border border-white/[0.08] bg-white/[0.03] px-3 py-1 font-body text-xs text-white/50">
+            {duration}
+          </span>
+        </div>
+
+        {/* Points */}
+        <ul className="mt-5 space-y-3">
+          {points.map((point, i) => (
+            <motion.li
+              key={i}
+              initial={{ opacity: 0, x: -10 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.07 }}
+              className="flex items-start gap-3 font-body text-sm leading-7 text-white/50"
+            >
+              <span
+                className={`mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-gradient-to-r ${color}`}
+              />
+              {point}
+            </motion.li>
+          ))}
+        </ul>
+      </div>
+    </motion.div>
+  </Reveal>
+);
+
+const Experience = () => {
+  const sectionRef = useRef(null);
+  const lineRef = useRef(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        lineRef.current,
+        { scaleY: 0, transformOrigin: "top center" },
+        {
+          scaleY: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 70%",
+            end: "bottom 30%",
+            scrub: 1.2,
+          },
+        }
+      );
+    }, sectionRef);
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <section id="experience" ref={sectionRef} className="relative overflow-hidden bg-[#0c0c1a] py-28">
+      {/* Orb */}
+      <div className="pointer-events-none absolute right-[-10%] top-1/3 h-[350px] w-[350px] rounded-full bg-fuchsia-700/8 blur-[100px]" />
+
+      <div className="container relative z-10 mx-auto px-4">
+        {/* Header */}
+        <div className="mb-16 grid gap-6 lg:grid-cols-2 lg:items-end">
+          <div>
+            <Reveal>
+              <p className="section-label mb-4">Experience</p>
+            </Reveal>
+            <Reveal delay={0.08}>
+              <h2 className="font-display text-4xl font-bold leading-tight text-white lg:text-5xl">
+                Real teams.{" "}
+                <span className="gradient-text">Real products.</span>
+              </h2>
+            </Reveal>
+          </div>
+          <Reveal delay={0.15}>
+            <p className="font-body leading-8 text-white/45">
+              Three years of professional frontend work — from agency projects to product companies to remote contracts.
             </p>
-            <h2 className="max-w-xl text-4xl font-bold leading-tight text-slate-950 dark:text-white lg:text-5xl">
-              Team impact, client delivery and business-focused frontend work.
-            </h2>
+          </Reveal>
+        </div>
+
+        {/* Timeline */}
+        <div className="relative ml-2">
+          {/* Vertical rail */}
+          <div className="absolute left-0 top-0 h-full w-px bg-white/[0.06]">
+            <div
+              ref={lineRef}
+              className="absolute inset-0 origin-top bg-gradient-to-b from-purple-500 via-cyan-500 to-amber-500"
+            />
           </div>
 
-          <div className="divide-y divide-slate-200 border-y border-slate-200 dark:divide-white/10 dark:border-white/10">
-            {experiences.map((item) => (
-              <Reveal key={item.company}>
-                <motion.div
-                  whileHover={{ x: 6 }}
-                  transition={{ type: "spring", stiffness: 260, damping: 22 }}
-                  className="grid gap-5 py-7 sm:grid-cols-[56px_1fr]"
-                >
-                  <div className="flex h-12 w-12 items-center justify-center rounded-md bg-slate-50 text-[#7562e0] shadow-sm dark:bg-white/10">
-                    <FiBriefcase className="text-xl" />
-                  </div>
-                  <div>
-                    <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
-                      <div>
-                        <h3 className="text-2xl font-bold text-slate-950 dark:text-white">
-                          {item.company}
-                        </h3>
-                        <p className="mt-1 font-medium text-slate-600 dark:text-gray-300">
-                          {item.role} · {item.employment}
-                        </p>
-                        <p className="mt-1 text-sm text-slate-500 dark:text-gray-400">
-                          {item.location}
-                        </p>
-                      </div>
-                      <span className="w-fit rounded-full border border-slate-200 px-3 py-1 text-sm font-semibold text-[#7562e0] dark:border-white/10">
-                        {item.duration}
-                      </span>
-                    </div>
-                    <ol className="mt-5 space-y-3">
-                      {item.points.map((point, pointIndex) => (
-                        <motion.li
-                          key={point}
-                          initial={{ opacity: 0, x: -12 }}
-                          whileInView={{ opacity: 1, x: 0 }}
-                          viewport={{ once: true }}
-                          transition={{ delay: pointIndex * 0.06 }}
-                          className="grid grid-cols-[32px_1fr] gap-3 text-sm leading-7 text-slate-600 dark:text-gray-300"
-                        >
-                          <span className="flex h-7 w-7 items-center justify-center rounded-full bg-slate-100 text-xs font-bold text-[#7562e0] dark:bg-white/10">
-                            {pointIndex + 1}
-                          </span>
-                          <span>{point}</span>
-                        </motion.li>
-                      ))}
-                    </ol>
-                  </div>
-                </motion.div>
-              </Reveal>
+          <div className="space-y-8">
+            {experiences.map((exp, i) => (
+              <ExperienceCard key={exp.company} {...exp} index={i} />
             ))}
           </div>
         </div>

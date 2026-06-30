@@ -1,60 +1,35 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { motion, useInView, useAnimation } from "framer-motion";
-import { useEffect } from "react";
 
-const Reveal = ({ children }) => {
+const Reveal = ({ children, delay = 0, direction = "up", className = "" }) => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
+  const isInView = useInView(ref, { once: true, margin: "-60px" });
+  const controls = useAnimation();
 
-  const mainControls = useAnimation();
-  const slideControls = useAnimation();
+  const initialMap = {
+    up: { opacity: 0, y: 40 },
+    down: { opacity: 0, y: -40 },
+    left: { opacity: 0, x: 40 },
+    right: { opacity: 0, x: -40 },
+    scale: { opacity: 0, scale: 0.88 },
+  };
+
+  const initial = initialMap[direction] ?? initialMap.up;
 
   useEffect(() => {
-    if (isInView) {
-      mainControls.start("visible");
-      slideControls.start("visible");
-    }
-  }, [isInView, mainControls, slideControls]);
+    if (isInView) controls.start({ opacity: 1, y: 0, x: 0, scale: 1 });
+  }, [isInView, controls]);
 
   return (
-    <div
+    <motion.div
       ref={ref}
-      style={{
-        position: "relative",
-        width: "100%",
-        overflow: "hidden",
-      }}
+      initial={initial}
+      animate={controls}
+      transition={{ duration: 0.65, delay, ease: [0.25, 0.46, 0.45, 0.94] }}
+      className={className}
     >
-      <motion.div
-        variants={{
-          hidden: { opacity: 0, y: 75 },
-          visible: { opacity: 1, y: 0 },
-        }}
-        initial="hidden"
-        animate={mainControls}
-        transition={{ duration: 0.5, delay: 0.25 }}
-      >
-        {children}
-      </motion.div>
-      <motion.div
-        variants={{
-          hidden: { left: 0 },
-          visible: { left: "100%" },
-        }}
-        initial="hidden"
-        animate={slideControls}
-        transition={{ duration: 0.5, ease: "easeIn" }}
-        style={{
-          position: "absolute",
-          top: 4,
-          bottom: 4,
-          left: 0,
-          right: 0,
-          background: "#7562e0",
-          zIndex: 20,
-        }}
-      />
-    </div>
+      {children}
+    </motion.div>
   );
 };
 

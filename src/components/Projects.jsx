@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import ProjectCard from "./ProjectCard";
+import Reveal from "./Reveal";
 import yachtImg from "../assets/thumbs/yacht-thumb.jpg";
 import opsImg from "../assets/thumbs/my-ops-thumb.jpg";
 import shopeaseImg from "../assets/thumbs/shopease-thumb.jpg";
@@ -10,7 +12,7 @@ import fluteImg from "../assets/thumbs/flute-thumb.jpg";
 import gadgetGalleryImg from "../assets/thumbs/gadgetgallery-thumb.jpg";
 import eyeSolutionsImg from "../assets/thumbs/eye-solutions-thumb.jpg";
 
-const filterOptions = ["All", "HTML/CSS", "React", "Next.js"];
+const filterOptions = ["All", "Next.js", "React", "HTML/CSS"];
 
 const projects = [
   {
@@ -21,18 +23,8 @@ const projects = [
       "A published ecommerce platform for a Bangladesh-based gadget and audio accessories store with storefront, catalog, cart, wishlist, checkout, reviews, image uploads, order tracking and a full admin dashboard.",
     liveLink: "https://www.gadgetgallery.tech",
     technology: "Next.js",
-    impact:
-      "Full ecommerce operation with customer shopping flow, inventory control, coupons, notifications and admin management.",
-    stack: [
-      "Next.js",
-      "TypeScript",
-      "Prisma",
-      "PostgreSQL",
-      "NextAuth",
-      "Cloudinary",
-      "Zustand",
-      "Vercel",
-    ],
+    impact: "Full ecommerce operation with customer shopping flow, inventory control, coupons, notifications and admin management.",
+    stack: ["Next.js", "TypeScript", "Prisma", "PostgreSQL", "NextAuth", "Cloudinary", "Zustand", "Vercel"],
   },
   {
     id: 16,
@@ -42,20 +34,8 @@ const projects = [
       "A clinic and optical management platform that connects appointment booking, doctor consultations, prescriptions, product sales, inventory tracking, billing and patient history in one workflow.",
     liveLink: "https://eye-solutions.vercel.app",
     technology: "Next.js",
-    impact:
-      "Connected care workflow for clinics and optical businesses, from patient booking to inventory and billing visibility.",
-    stack: [
-      "Next.js",
-      "React",
-      "TypeScript",
-      "Prisma",
-      "PostgreSQL",
-      "Neon",
-      "Tailwind CSS",
-      "Cloudinary",
-      "Nodemailer",
-      "Vercel",
-    ],
+    impact: "Connected care workflow for clinics and optical businesses, from patient booking to inventory and billing visibility.",
+    stack: ["Next.js", "React", "TypeScript", "Prisma", "PostgreSQL", "Neon", "Tailwind CSS", "Cloudinary", "Nodemailer", "Vercel"],
   },
   {
     id: 1,
@@ -94,16 +74,8 @@ const projects = [
   },
   {
     id: 4,
-    title: "Captured visions",
-    images: [
-      "https://i.ibb.co/rkB8d99/img1.webp",
-      "https://i.ibb.co/vzSLKP1/img2.webp",
-      "https://i.ibb.co/T2p9RBw/img3.webp",
-      "https://i.ibb.co/1Ky0KmL/img4.webp",
-      "https://i.ibb.co/M7hThv0/img5.webp",
-      "https://i.ibb.co/pKZrmHJ/img6.webp",
-      "https://i.ibb.co/0cCyZC9/img7.webp",
-    ],
+    title: "Captured Visions",
+    images: ["https://i.ibb.co/rkB8d99/img1.webp"],
     summery:
       "A full-stack photography school website with authentication, course browsing and a structured learning experience.",
     liveLink: "https://capturedvisions-61b6b.web.app/",
@@ -116,13 +88,7 @@ const projects = [
   {
     id: 5,
     title: "Lodgify",
-    images: [
-      "https://i.ibb.co/MPHmQQV/1.webp",
-      "https://i.ibb.co/Cnfw5gM/3.webp",
-      "https://i.ibb.co/wMv8t0m/2.webp",
-      "https://i.ibb.co/cwcvr9m/4.webp",
-      "https://i.ibb.co/fD7MCWX/5.webp",
-    ],
+    images: ["https://i.ibb.co/MPHmQQV/1.webp"],
     summery:
       "A booking management interface for hotels and vacation rentals, built to make guest and reservation workflows easier to manage.",
     liveLink: "https://y-lyart-seven.vercel.app/",
@@ -190,10 +156,7 @@ const projects = [
   {
     id: 11,
     title: "Simple E-commerce",
-    images: [
-      "https://i.ibb.co/Snmp0vB/Screenshot-2024-08-15-012503.webp",
-      "https://i.ibb.co/SR67GDz/Screenshot-2024-08-15-012529.webp",
-    ],
+    images: ["https://i.ibb.co/Snmp0vB/Screenshot-2024-08-15-012503.webp"],
     summery:
       "A product listing experience that fetches API data and supports searching, filtering and sorting for easier product discovery.",
     liveLink: "https://simple-ecommerce-gamma.vercel.app",
@@ -205,14 +168,7 @@ const projects = [
   {
     id: 12,
     title: "Toy Paradise",
-    images: [
-      "https://i.ibb.co/Jc5bwZ4/img1.webp",
-      "https://i.ibb.co/VqP9q7m/img2.webp",
-      "https://i.ibb.co/9hnsk6B/img3.webp",
-      "https://i.ibb.co/mTv3VN9/img4.webp",
-      "https://i.ibb.co/1952bs1/img5.webp",
-      "https://i.ibb.co/K59kbqQ/img6.webp",
-    ],
+    images: ["https://i.ibb.co/Jc5bwZ4/img1.webp"],
     summery:
       "A full-stack toy catalog experience for browsing products and managing content around an action figure collection.",
     liveLink: "https://toy-paradise-2e411.web.app/",
@@ -225,15 +181,7 @@ const projects = [
   {
     id: 13,
     title: "Savory Selection",
-    images: [
-      "https://i.ibb.co/bbSmvw2/img1.webp",
-      "https://i.ibb.co/L9bXpf9/img2.webp",
-      "https://i.ibb.co/V9VQgHM/img3.webp",
-      "https://i.ibb.co/1ZVFww3/img4.webp",
-      "https://i.ibb.co/3yd0TLj/img5.webp",
-      "https://i.ibb.co/BPRyBdF/img6.webp",
-      "https://i.ibb.co/ZXWDkyr/img7.webp",
-    ],
+    images: ["https://i.ibb.co/bbSmvw2/img1.webp"],
     summery:
       "A cuisine-focused web experience for showcasing Bangladeshi dishes with rich browsing and content presentation patterns.",
     liveLink: "https://react-savory-selections.web.app/",
@@ -245,14 +193,8 @@ const projects = [
   },
   {
     id: 14,
-    title: "Ticket Booking App",
-    images: [
-      "https://i.ibb.co/Pcyhf9p/5.webp",
-      "https://i.ibb.co/51xSgpF/3.webp",
-      "https://i.ibb.co/Qvcvpwy/2.webp",
-      "https://i.ibb.co/yW5KwVd/1.webp",
-      "https://i.ibb.co/BGJzvsJ/4.webp",
-    ],
+    title: "Ticket Booking",
+    images: ["https://i.ibb.co/Pcyhf9p/5.webp"],
     summery:
       "A ticket booking dashboard experience for browsing events, managing reservations and supporting purchase workflows.",
     liveLink: "https://ticket-booking-dashboard-rho.vercel.app",
@@ -265,76 +207,83 @@ const projects = [
 ];
 
 const Projects = () => {
-  // const [projects, setProjects] = useState([]);
-  const [filteredProjects, setFilteredProjects] = useState(projects);
   const [activeFilter, setActiveFilter] = useState("All");
 
-  // useEffect(() => {
-  //   fetch("/data.json")
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setProjects(data);
-  //       setFilteredProjects(data);
-  //     });
-  // }, []);
-
-  const handleFilter = (filter) => {
-    setActiveFilter(filter);
-    if (filter === "All") {
-      setFilteredProjects(projects);
-    } else {
-      const filtered = projects.filter(
-        (project) => project.technology === filter
-      );
-      setFilteredProjects(filtered);
-    }
-  };
+  const filtered = activeFilter === "All"
+    ? projects
+    : projects.filter((p) => p.technology === activeFilter);
 
   return (
-    <section className="bg-slate-50 py-20 dark:bg-[#151822]" id="projects">
-      <div className="container mx-auto px-4 font-poppins">
-        <div className="grid gap-8 border-b border-slate-200 pb-10 dark:border-white/10 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
+    <section id="projects" className="relative overflow-hidden bg-[#0c0c1a] py-28">
+      {/* Orb */}
+      <div className="pointer-events-none absolute left-[-8%] top-1/4 h-[400px] w-[400px] rounded-full bg-cyan-700/8 blur-[100px]" />
+
+      <div className="container relative z-10 mx-auto px-4">
+        {/* Header */}
+        <div className="mb-12 grid gap-8 lg:grid-cols-2 lg:items-end">
           <div>
-            <p className="mb-4 text-sm font-semibold uppercase tracking-[0.24em] text-[#7562e0]">
-              Work
-            </p>
-            <h2 className="text-4xl font-bold leading-tight text-slate-950 dark:text-white lg:text-5xl">
-              Selected projects. Real interfaces.
-            </h2>
+            <Reveal>
+              <p className="section-label mb-4">Work</p>
+            </Reveal>
+            <Reveal delay={0.08}>
+              <h2 className="font-display text-4xl font-bold leading-tight text-white lg:text-5xl">
+                Selected projects.{" "}
+                <span className="gradient-text">Real interfaces.</span>
+              </h2>
+            </Reveal>
           </div>
-          <div>
-            <p className="max-w-2xl text-slate-700 dark:text-gray-300">
-              Websites, dashboards, eCommerce, booking systems and content
-              platforms.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              {filterOptions.map((option) => (
-                <button
-                  key={option}
-                  onClick={() => handleFilter(option)}
-                  className={`rounded-full border px-4 py-2 text-sm font-medium ${
-                    activeFilter === option
-                      ? "border-slate-950 bg-slate-950 text-white dark:border-white dark:bg-white dark:text-slate-950"
-                      : "border-slate-200 bg-white text-slate-700 dark:border-white/10 dark:bg-white/5 dark:text-gray-300"
-                  } transition duration-300 hover:border-[#7562e0] hover:text-[#7562e0]`}
-                >
-                  {option}
-                </button>
-              ))}
+          <Reveal delay={0.15}>
+            <div>
+              <p className="mb-6 font-body text-white/45">
+                Websites, dashboards, eCommerce, booking systems, and content platforms built with modern tooling.
+              </p>
+              {/* Filters */}
+              <div className="relative flex flex-wrap gap-2">
+                {filterOptions.map((option) => (
+                  <button
+                    key={option}
+                    onClick={() => setActiveFilter(option)}
+                    className={`relative rounded-xl border px-4 py-2 font-body text-sm font-medium transition-all duration-300 ${
+                      activeFilter === option
+                        ? "border-purple-500/50 bg-purple-500/15 text-purple-300"
+                        : "border-white/[0.08] bg-white/[0.03] text-white/50 hover:border-white/20 hover:text-white"
+                    }`}
+                  >
+                    {activeFilter === option && (
+                      <motion.span
+                        layoutId="filter-active"
+                        className="absolute inset-0 rounded-xl bg-purple-500/10"
+                      />
+                    )}
+                    {option}
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
+          </Reveal>
         </div>
-        <div>
-          {filteredProjects.length > 0 ? (
-            filteredProjects.map((project, idx) => (
-              <ProjectCard key={idx} project={project} index={idx} />
-            ))
-          ) : (
-            <p className="py-10 text-center text-gray-500 dark:text-gray-400">
-              No projects found for {activeFilter}.
-            </p>
-          )}
-        </div>
+
+        {/* Grid */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeFilter}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.35 }}
+            className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+          >
+            {filtered.length > 0 ? (
+              filtered.map((project, idx) => (
+                <ProjectCard key={project.id} project={project} index={idx} />
+              ))
+            ) : (
+              <p className="col-span-full py-16 text-center font-body text-white/40">
+                No projects in this category yet.
+              </p>
+            )}
+          </motion.div>
+        </AnimatePresence>
       </div>
     </section>
   );

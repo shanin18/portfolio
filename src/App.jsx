@@ -1,5 +1,6 @@
 import About from "./components/About";
 import Contact from "./components/Contact";
+import CustomCursor from "./components/CustomCursor";
 import Experience from "./components/Experience";
 import Footer from "./components/Footer";
 import Hero from "./components/Hero";
@@ -11,15 +12,16 @@ import Skills from "./components/Skills";
 function App() {
   return (
     <>
-      <Navbar></Navbar>
-      <Hero></Hero>
-      <About></About>
-      <Experience></Experience>
-      <Skills></Skills>
-      <Process></Process>
-      <Projects></Projects>
-      <Contact></Contact>
-      <Footer></Footer>
+      <CustomCursor />
+      <Navbar />
+      <Hero />
+      <About />
+      <Skills />
+      <Experience />
+      <Process />
+      <Projects />
+      <Contact />
+      <Footer />
     </>
   );
 }

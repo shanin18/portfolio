@@ -1,118 +1,176 @@
-import { useState } from "react";
-import { motion, useScroll } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { HiOutlineBars3, HiOutlineXMark } from "react-icons/hi2";
-import DarkMode from "./DarkMode";
 
 const navItems = [
-  { id: "home", label: "Intro", href: "#" },
+  { id: "home", label: "Home", href: "#" },
   { id: "about", label: "About", href: "#about" },
-  { id: "experience", label: "Experience", href: "#experience" },
   { id: "skills", label: "Skills", href: "#skills" },
-  { id: "process", label: "Process", href: "#process" },
+  { id: "experience", label: "Experience", href: "#experience" },
   { id: "projects", label: "Work", href: "#projects" },
   { id: "contact", label: "Contact", href: "#contact" },
 ];
 
-const BrandMark = () => (
-  <motion.span
-    whileHover={{ rotate: -8, scale: 1.08 }}
-    transition={{ type: "spring", stiffness: 320, damping: 18 }}
-    className="flex h-10 w-10 items-center justify-center rounded-full bg-[#7562e0] font-poppins text-sm font-bold tracking-wider text-white"
+const Logo = () => (
+  <motion.div
+    whileHover={{ scale: 1.05 }}
+    whileTap={{ scale: 0.95 }}
+    className="relative flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-cyan-500 text-sm font-bold text-white shadow-[0_0_20px_rgba(168,85,247,0.4)]"
   >
     SH
-  </motion.span>
+  </motion.div>
 );
 
 const Navbar = () => {
   const [active, setActive] = useState("home");
-  const [fold, setFold] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const { scrollYProgress } = useScroll();
 
+  useEffect(() => {
+    const unsub = scrollYProgress.on("change", (v) => setScrolled(v > 0.01));
+    return unsub;
+  }, [scrollYProgress]);
+
   return (
-    <nav className="sticky top-0 z-40 border-b border-slate-200 bg-white/90 font-poppins backdrop-blur-xl dark:border-white/10 dark:bg-[#0f1117]/90">
-      <motion.div
-        className="absolute bottom-0 left-0 h-[2px] origin-left bg-[#7562e0]"
-        style={{ scaleX: scrollYProgress }}
-      />
-      <div className="container mx-auto flex items-center justify-between px-4 py-3">
-        <a href="#" className="flex items-center gap-3">
-          <BrandMark />
-          <h2 className="text-base font-bold text-slate-950 dark:text-white md:text-lg">
-            Shamim
-          </h2>
-        </a>
-        <div className="flex items-center gap-3">
-          <ul className="hidden items-center gap-7 text-sm font-medium text-slate-600 dark:text-gray-300 lg:flex">
+    <>
+      <motion.nav
+        initial={{ y: -80, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+        className={`sticky top-0 z-50 font-body transition-all duration-500 ${
+          scrolled
+            ? "border-b border-white/[0.07] bg-[#080810]/85 backdrop-blur-xl"
+            : "bg-transparent"
+        }`}
+      >
+        {/* Scroll progress beam */}
+        <motion.div
+          className="absolute bottom-0 left-0 h-[2px] origin-left bg-gradient-to-r from-purple-500 to-cyan-400"
+          style={{ scaleX: scrollYProgress }}
+        />
+
+        <div className="container mx-auto flex items-center justify-between px-4 py-4">
+          <a href="#" className="flex items-center gap-3">
+            <Logo />
+            <span className="font-display text-lg font-bold text-white">
+              Shamim
+            </span>
+          </a>
+
+          {/* Desktop nav */}
+          <ul className="hidden items-center gap-8 text-sm font-medium lg:flex">
             {navItems.map((item) => (
-              <li key={item.id}>
+              <li key={item.id} className="relative">
                 <a
                   href={item.href}
                   onClick={() => setActive(item.id)}
-                  className={`transition ${
+                  className={`transition-colors duration-200 ${
                     active === item.id
-                      ? "text-[#7562e0]"
-                      : "hover:text-slate-950 dark:hover:text-white"
+                      ? "text-white"
+                      : "text-white/50 hover:text-white"
                   }`}
                 >
                   {item.label}
                 </a>
+                {active === item.id && (
+                  <motion.div
+                    layoutId="nav-indicator"
+                    className="absolute -bottom-1 left-0 right-0 h-px bg-gradient-to-r from-purple-500 to-cyan-400"
+                  />
+                )}
               </li>
             ))}
           </ul>
-          <a
-            href="#contact"
-            onClick={() => setActive("contact")}
-            className="hidden rounded-full bg-slate-950 px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#7562e0] dark:bg-white dark:text-slate-950 dark:hover:bg-[#7562e0] dark:hover:text-white lg:inline-flex"
-          >
-            Let us talk
-          </a>
-          <DarkMode></DarkMode>
-          <div className="lg:hidden">
-            {!fold ? (
-              <HiOutlineBars3
-                onClick={() => setFold(!fold)}
-                className="cursor-pointer text-2xl text-slate-950 dark:text-white"
-              ></HiOutlineBars3>
-            ) : (
-              <HiOutlineXMark
-                onClick={() => setFold(!fold)}
-                className="cursor-pointer text-2xl text-slate-950 dark:text-white"
-              ></HiOutlineXMark>
-            )}
+
+          <div className="flex items-center gap-4">
+            <a
+              href="#contact"
+              onClick={() => setActive("contact")}
+              className="hidden rounded-xl border border-white/[0.12] px-5 py-2.5 text-sm font-semibold text-white transition-all duration-300 hover:border-purple-400/60 hover:bg-purple-500/10 lg:inline-flex"
+            >
+              Let&apos;s Talk
+            </a>
+
+            {/* Mobile toggle */}
+            <button
+              onClick={() => setOpen(!open)}
+              className="rounded-lg border border-white/[0.08] p-2 text-white/70 hover:text-white lg:hidden"
+              aria-label="Toggle menu"
+            >
+              {open ? (
+                <HiOutlineXMark className="h-5 w-5" />
+              ) : (
+                <HiOutlineBars3 className="h-5 w-5" />
+              )}
+            </button>
           </div>
         </div>
-      </div>
-      <div
-        className={`fixed top-0 z-50 h-screen w-[300px] bg-white font-poppins text-base text-slate-800 shadow-2xl transition-all duration-300 ease-in-out dark:bg-[#11131a] dark:text-white lg:hidden ${
-          !fold ? "-left-[300px]" : "left-0"
-        }`}
-      >
-        <div className="mb-8 flex items-center gap-3 border-b border-slate-200 px-5 py-5 dark:border-white/10">
-          <BrandMark />
-          <h2 className="font-bold text-slate-950 dark:text-white">Shamim</h2>
-        </div>
-        <ul className="space-y-2 px-5">
-          {navItems.map((item) => (
-            <li key={item.id}>
-              <a
-                href={item.href}
-                onClick={() => {
-                  setFold(false);
-                  setActive(item.id);
-                }}
-                className={`block rounded-md px-4 py-3 ${
-                  active === item.id
-                    ? "bg-[#7562e0] text-white"
-                    : "hover:bg-slate-100 dark:hover:bg-white/10"
-                }`}
-              >
-                {item.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </nav>
+      </motion.nav>
+
+      {/* Mobile drawer */}
+      <AnimatePresence>
+        {open && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setOpen(false)}
+              className="fixed inset-0 z-40 bg-black/70 backdrop-blur-sm lg:hidden"
+            />
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 28, stiffness: 300 }}
+              className="fixed right-0 top-0 z-50 h-screen w-72 border-l border-white/[0.07] bg-[#0c0c1a] font-body lg:hidden"
+            >
+              <div className="flex items-center justify-between border-b border-white/[0.07] px-6 py-5">
+                <div className="flex items-center gap-3">
+                  <Logo />
+                  <span className="font-display font-bold text-white">Shamim</span>
+                </div>
+                <button onClick={() => setOpen(false)} className="text-white/50 hover:text-white">
+                  <HiOutlineXMark className="h-5 w-5" />
+                </button>
+              </div>
+              <ul className="space-y-1 px-4 py-6">
+                {navItems.map((item, i) => (
+                  <motion.li
+                    key={item.id}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.05 }}
+                  >
+                    <a
+                      href={item.href}
+                      onClick={() => { setOpen(false); setActive(item.id); }}
+                      className={`flex rounded-xl px-4 py-3 text-sm font-medium transition-all ${
+                        active === item.id
+                          ? "bg-purple-500/15 text-purple-300"
+                          : "text-white/60 hover:bg-white/[0.04] hover:text-white"
+                      }`}
+                    >
+                      {item.label}
+                    </a>
+                  </motion.li>
+                ))}
+              </ul>
+              <div className="px-4">
+                <a
+                  href="#contact"
+                  onClick={() => { setOpen(false); setActive("contact"); }}
+                  className="btn-gradient block text-center"
+                >
+                  Let&apos;s Talk
+                </a>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 
