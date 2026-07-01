@@ -1,34 +1,59 @@
-import { useEffect } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { useEffect, useRef } from "react";
 
 const CustomCursor = () => {
-  const mouseX = useMotionValue(-100);
-  const mouseY = useMotionValue(-100);
-
-  const dotX = useSpring(mouseX, { damping: 30, stiffness: 800 });
-  const dotY = useSpring(mouseY, { damping: 30, stiffness: 800 });
-
-  const ringX = useSpring(mouseX, { damping: 22, stiffness: 180 });
-  const ringY = useSpring(mouseY, { damping: 22, stiffness: 180 });
+  const dotRef = useRef(null);
+  const ringRef = useRef(null);
 
   useEffect(() => {
-    const move = (e) => {
-      mouseX.set(e.clientX);
-      mouseY.set(e.clientY);
+    if (window.matchMedia("(pointer: coarse)").matches) return;
+
+    let rafId;
+    let mouseX = -100;
+    let mouseY = -100;
+    let ringX = -100;
+    let ringY = -100;
+
+    const onMove = (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
     };
-    window.addEventListener("mousemove", move);
-    return () => window.removeEventListener("mousemove", move);
-  }, [mouseX, mouseY]);
+
+    const tick = () => {
+      // Dot: zero-lag, instant
+      if (dotRef.current) {
+        dotRef.current.style.transform = `translate(${mouseX - 4}px, ${mouseY - 4}px)`;
+      }
+
+      // Ring: lerp for smooth trail (no spring overhead)
+      ringX += (mouseX - ringX) * 0.12;
+      ringY += (mouseY - ringY) * 0.12;
+      if (ringRef.current) {
+        ringRef.current.style.transform = `translate(${ringX - 18}px, ${ringY - 18}px)`;
+      }
+
+      rafId = requestAnimationFrame(tick);
+    };
+
+    window.addEventListener("mousemove", onMove, { passive: true });
+    rafId = requestAnimationFrame(tick);
+
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      cancelAnimationFrame(rafId);
+    };
+  }, []);
 
   return (
     <>
-      <motion.div
-        className="pointer-events-none fixed z-[9999] hidden h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-purple-400 md:block"
-        style={{ left: dotX, top: dotY }}
+      <div
+        ref={dotRef}
+        className="pointer-events-none fixed left-0 top-0 z-[9999] hidden h-2 w-2 rounded-full bg-purple-400 md:block"
+        style={{ willChange: "transform" }}
       />
-      <motion.div
-        className="pointer-events-none fixed z-[9998] hidden h-9 w-9 -translate-x-1/2 -translate-y-1/2 rounded-full border border-purple-400/40 md:block"
-        style={{ left: ringX, top: ringY }}
+      <div
+        ref={ringRef}
+        className="pointer-events-none fixed left-0 top-0 z-[9998] hidden h-9 w-9 rounded-full border border-purple-400/40 md:block"
+        style={{ willChange: "transform" }}
       />
     </>
   );

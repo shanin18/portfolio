@@ -31,7 +31,7 @@ const Footer = () => {
 
           {/* Copyright */}
           <p className="font-body text-sm text-white/25">
-            &copy; {new Date().getFullYear()} Syed Shamim Hosan &mdash; Built with React &amp; Framer Motion
+            &copy; {new Date().getFullYear()} Syed Shamim Hosan. All rights reserved.
           </p>
 
           {/* Links + Back to top */}
