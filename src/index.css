@@ -177,7 +177,6 @@ h1, h2, h3 {
 /* ── Depth scroll: sections rise from depth and fold away (scroll-driven, off main thread) ── */
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
-    section { perspective: 1400px; }
     section > .container > :not(.grid) {
       transform-origin: 50% 0%;
       animation: depth-in linear both, depth-out linear none;
@@ -185,12 +184,12 @@ h1, h2, h3 {
       animation-range: entry 0% cover 30%, exit 15% exit 100%;
     }
     @keyframes depth-in {
-      from { transform: translateY(110px) rotateX(18deg) scale(0.93); opacity: 0.15; }
+      from { transform: perspective(1400px) translateY(110px) rotateX(18deg) scale(0.93); opacity: 0.15; }
       to   { transform: none; opacity: 1; }
     }
     @keyframes depth-out {
-      from { transform: none; opacity: 1; }
-      to   { transform: translateY(-40px) rotateX(-14deg) scale(0.94); opacity: 0.25; }
+      from { transform: perspective(1400px); opacity: 1; }
+      to   { transform: perspective(1400px) translateY(-40px) rotateX(-14deg) scale(0.94); opacity: 0.25; }
     }
   }
 }
