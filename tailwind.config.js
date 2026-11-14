@@ -5,14 +5,18 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        display: ["Space Grotesk", "sans-serif"],
-        body: ["Inter", "sans-serif"],
+        display: ["Bricolage Grotesque", "sans-serif"],
+        body: ["Manrope", "sans-serif"],
         poppins: ["Poppins", "sans-serif"],
       },
       colors: {
-        "bg-primary": "#080810",
-        "bg-alt": "#0c0c1a",
-        surface: "#111128",
+        "bg-primary": "#0b0a09",
+        purple: {100:"#ffe4dc",200:"#ffc6b5",300:"#ffa58f",400:"#ff7a59",500:"#ff5533",600:"#e63e1c",700:"#b8300f",800:"#7a220c",900:"#4a1608",950:"#2a0c04"},
+        violet: {100:"#ffe4dc",200:"#ffc6b5",300:"#ffa58f",400:"#ff7a59",500:"#ff5533",600:"#e63e1c",700:"#b8300f",800:"#7a220c",900:"#4a1608",950:"#2a0c04"},
+        fuchsia: {100:"#ffe4dc",200:"#ffc6b5",300:"#ffa58f",400:"#ff7a59",500:"#ff5533",600:"#e63e1c",700:"#b8300f",800:"#7a220c",900:"#4a1608",950:"#2a0c04"},
+        cyan: {100:"#fff3d6",200:"#ffe3a3",300:"#ffd27a",400:"#ffbf47",500:"#ffab1a",600:"#e08d00",700:"#a86500",800:"#6b4100",900:"#3d2500",950:"#241500"},
+        "bg-alt": "#100e0c",
+        surface: "#181512",
       },
       animation: {
         text: "text 5s ease infinite",

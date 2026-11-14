@@ -29,9 +29,9 @@ const Contact = () => {
           text: "I'll get back to you shortly.",
           showConfirmButton: false,
           timer: 2000,
-          background: "#111128",
+          background: "#181512",
           color: "#f1f5f9",
-          iconColor: "#a855f7",
+          iconColor: "#ff5533",
         });
       })
       .catch((err) => {
@@ -40,14 +40,14 @@ const Contact = () => {
           icon: "error",
           title: "Something went wrong",
           text: "Please try again or email me directly.",
-          background: "#111128",
+          background: "#181512",
           color: "#f1f5f9",
         });
       });
   };
 
   return (
-    <section id="contact" className="relative overflow-hidden bg-[#080810] py-28">
+    <section id="contact" className="relative overflow-hidden py-28">
       {/* Animated gradient bg */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-1/2 top-0 h-px w-full -translate-x-1/2 bg-gradient-to-r from-transparent via-purple-500/40 to-transparent" />
@@ -131,7 +131,7 @@ const Contact = () => {
                     name="user_name"
                     required
                     placeholder="Your name"
-                    className="w-full rounded-xl border border-white/[0.08] bg-white/[0.04] px-4 py-3.5 font-body text-sm text-white placeholder-white/25 outline-none ring-0 transition-all focus:border-purple-500/50 focus:bg-white/[0.06] focus:shadow-[0_0_0_3px_rgba(168,85,247,0.12)]"
+                    className="w-full rounded-xl border border-white/[0.08] bg-white/[0.04] px-4 py-3.5 font-body text-sm text-white placeholder-white/25 outline-none ring-0 transition-all focus:border-purple-500/50 focus:bg-white/[0.06] focus:shadow-[0_0_0_3px_rgba(255,85,51,0.12)]"
                   />
                 </div>
                 <div className="space-y-1.5">
@@ -141,7 +141,7 @@ const Contact = () => {
                     name="user_email"
                     required
                     placeholder="your@email.com"
-                    className="w-full rounded-xl border border-white/[0.08] bg-white/[0.04] px-4 py-3.5 font-body text-sm text-white placeholder-white/25 outline-none ring-0 transition-all focus:border-purple-500/50 focus:bg-white/[0.06] focus:shadow-[0_0_0_3px_rgba(168,85,247,0.12)]"
+                    className="w-full rounded-xl border border-white/[0.08] bg-white/[0.04] px-4 py-3.5 font-body text-sm text-white placeholder-white/25 outline-none ring-0 transition-all focus:border-purple-500/50 focus:bg-white/[0.06] focus:shadow-[0_0_0_3px_rgba(255,85,51,0.12)]"
                   />
                 </div>
               </div>
@@ -153,13 +153,13 @@ const Contact = () => {
                   required
                   rows={6}
                   placeholder="Tell me about your project, timeline, and budget..."
-                  className="w-full resize-none rounded-xl border border-white/[0.08] bg-white/[0.04] px-4 py-3.5 font-body text-sm text-white placeholder-white/25 outline-none ring-0 transition-all focus:border-purple-500/50 focus:bg-white/[0.06] focus:shadow-[0_0_0_3px_rgba(168,85,247,0.12)]"
+                  className="w-full resize-none rounded-xl border border-white/[0.08] bg-white/[0.04] px-4 py-3.5 font-body text-sm text-white placeholder-white/25 outline-none ring-0 transition-all focus:border-purple-500/50 focus:bg-white/[0.06] focus:shadow-[0_0_0_3px_rgba(255,85,51,0.12)]"
                 />
               </div>
 
               <motion.button
                 type="submit"
-                whileHover={{ scale: 1.02, boxShadow: "0 0 30px rgba(168,85,247,0.4)" }}
+                whileHover={{ scale: 1.02, boxShadow: "0 0 30px rgba(255,85,51,0.4)" }}
                 whileTap={{ scale: 0.97 }}
                 className="btn-gradient w-full justify-center font-body"
               >

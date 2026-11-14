@@ -15,9 +15,9 @@ const Logo = () => (
   <motion.div
     whileHover={{ scale: 1.05 }}
     whileTap={{ scale: 0.95 }}
-    className="relative flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-cyan-500 text-sm font-bold text-white shadow-[0_0_20px_rgba(168,85,247,0.4)]"
+    className="relative flex h-10 w-10 rotate-[-6deg] items-center justify-center rounded-xl border border-purple-500/40 bg-purple-500/10 font-mono text-sm font-bold text-purple-300"
   >
-    SH
+    {"</>"}
   </motion.div>
 );
 
@@ -32,6 +32,24 @@ const Navbar = () => {
     return unsub;
   }, [scrollYProgress]);
 
+  // Scroll-spy: highlight the nav item whose section crosses the middle of the viewport.
+  useEffect(() => {
+    const ids = navItems.map((n) => n.id);
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting && ids.includes(e.target.id)) setActive(e.target.id);
+        });
+      },
+      { rootMargin: "-45% 0px -50% 0px" }
+    );
+    ids.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) io.observe(el);
+    });
+    return () => io.disconnect();
+  }, []);
+
   return (
     <>
       <motion.nav
@@ -40,7 +58,7 @@ const Navbar = () => {
         transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
         className={`sticky top-0 z-50 font-body transition-all duration-500 ${
           scrolled
-            ? "border-b border-white/[0.07] bg-[#080810]/85 backdrop-blur-xl"
+            ? "border-b border-white/[0.07] bg-[#0b0a09]/95"
             : "bg-transparent"
         }`}
       >
@@ -53,8 +71,8 @@ const Navbar = () => {
         <div className="container mx-auto flex items-center justify-between px-4 py-4">
           <a href="#" className="flex items-center gap-3">
             <Logo />
-            <span className="font-display text-lg font-bold text-white">
-              Shamim
+            <span className="font-mono text-base font-semibold text-white">
+              shamim<span className="text-purple-400">.dev</span>
             </span>
           </a>
 
@@ -124,12 +142,12 @@ const Navbar = () => {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 28, stiffness: 300 }}
-              className="fixed right-0 top-0 z-50 h-screen w-72 border-l border-white/[0.07] bg-[#0c0c1a] font-body lg:hidden"
+              className="fixed right-0 top-0 z-50 h-screen w-72 border-l border-white/[0.07] bg-[#100e0c] font-body lg:hidden"
             >
               <div className="flex items-center justify-between border-b border-white/[0.07] px-6 py-5">
                 <div className="flex items-center gap-3">
                   <Logo />
-                  <span className="font-display font-bold text-white">Shamim</span>
+                  <span className="font-mono font-semibold text-white">shamim<span className="text-purple-400">.dev</span></span>
                 </div>
                 <button onClick={() => setOpen(false)} className="text-white/50 hover:text-white">
                   <HiOutlineXMark className="h-5 w-5" />

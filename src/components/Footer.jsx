@@ -9,7 +9,7 @@ const Footer = () => {
   const scaleX = useSpring(scrollYProgress, { stiffness: 200, damping: 40 });
 
   return (
-    <footer className="relative border-t border-white/[0.06] bg-[#080810] py-10">
+    <footer className="relative border-t border-white/[0.06] bg-[#0b0a09] py-10">
       {/* Scroll progress bar */}
       <motion.div
         className="absolute top-0 left-0 h-px origin-left bg-gradient-to-r from-purple-500 via-fuchsia-500 to-cyan-500"
@@ -20,12 +20,12 @@ const Footer = () => {
         <div className="flex flex-col items-center gap-6 md:flex-row md:justify-between">
           {/* Brand */}
           <a href="#" className="flex items-center gap-3" onClick={scrollToTop}>
-            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-cyan-500 font-display text-xs font-bold text-white shadow-[0_0_16px_rgba(168,85,247,0.35)]">
-              SH
+            <div className="flex h-9 w-9 items-center justify-center rotate-[-6deg] rounded-xl border border-purple-500/40 bg-purple-500/10 font-mono text-xs font-bold text-purple-300">
+              {"</>"}
             </div>
             <div>
-              <p className="font-display font-bold text-white">Shamim</p>
-              <p className="font-body text-[10px] text-white/30">Frontend Developer</p>
+              <p className="font-mono font-semibold text-white">shamim<span className="text-purple-400">.dev</span></p>
+              <p className="font-body text-[10px] text-white/30">Software Developer</p>
             </div>
           </a>
 

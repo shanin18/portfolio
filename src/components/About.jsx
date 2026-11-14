@@ -5,15 +5,15 @@ import { FiCode, FiDatabase, FiLayers, FiTrendingUp, FiZap } from "react-icons/f
 const stats = [
   { value: "50+", label: "Websites Shipped", color: "from-purple-400 to-fuchsia-400" },
   { value: "3+", label: "Years of Experience", color: "from-cyan-400 to-blue-400" },
-  { value: "16+", label: "Projects Built", color: "from-amber-400 to-orange-400" },
+  { value: "23+", label: "Projects Built", color: "from-amber-400 to-orange-400" },
   { value: "100%", label: "Client Satisfaction", color: "from-green-400 to-emerald-400" },
 ];
 
 const pillars = [
   {
     icon: FiLayers,
-    title: "CMS Mastery",
-    description: "WordPress and Grav websites that non-devs can actually manage — clean, flexible, maintainable.",
+    title: "Headless CMS",
+    description: "Payload CMS, WordPress and Grav builds that non-developers can actually manage: clean, flexible, maintainable.",
     color: "text-purple-400",
     bg: "bg-purple-500/10 border-purple-500/20",
   },
@@ -27,7 +27,7 @@ const pillars = [
   {
     icon: FiDatabase,
     title: "Full-Stack Reach",
-    description: "MongoDB, PostgreSQL, Prisma and Node.js — connecting the data layer to the interface.",
+    description: "Node.js, Prisma, PostgreSQL and MongoDB: auth, payments, search and APIs wired straight into the interface.",
     color: "text-amber-400",
     bg: "bg-amber-500/10 border-amber-500/20",
   },
@@ -42,7 +42,7 @@ const pillars = [
 
 const About = () => {
   return (
-    <section id="about" className="relative overflow-hidden bg-[#0c0c1a] py-28">
+    <section id="about" className="relative overflow-hidden py-28">
       {/* Subtle orb */}
       <div className="pointer-events-none absolute right-[-15%] top-1/2 h-[400px] w-[400px] -translate-y-1/2 rounded-full bg-purple-700/8 blur-[100px]" />
 
@@ -64,19 +64,19 @@ const About = () => {
 
             <Reveal delay={0.15}>
               <p className="mt-6 font-body leading-8 text-white/55">
-                I&apos;m a frontend developer with 3+ years of professional experience turning product requirements into polished, performant web experiences. I care deeply about UI craftsmanship — the kind that users notice even when they can&apos;t articulate why it feels so good.
+                I&apos;m a software developer at North South University, where I&apos;m modernizing the official Admission Portal with Vue.js on a Symfony backend. Over 3+ years and 50+ production projects, I&apos;ve gone from pixel-perfect Figma builds to shipping complete products: storefronts, SaaS dashboards, CMS-driven sites, marketplaces and even 3D multiplayer games.
               </p>
             </Reveal>
 
             <Reveal delay={0.22}>
               <p className="mt-4 font-body leading-8 text-white/55">
-                My stack spans CMS builds (WordPress, Grav), React/Next.js applications, and full-stack MERN work. Whether it&apos;s a service website, a data dashboard, or an eCommerce flow — my focus is always the same: make it clear, fast, and easy to use.
+                I work across the whole stack: React, Next.js and Vue.js on the front, Node.js, Prisma, PostgreSQL and Payload CMS behind it, with an AI-assisted workflow (Claude, ChatGPT, Codex) that lets me ship faster without cutting corners. My business degree keeps me focused on what the product has to achieve, not just how it looks.
               </p>
             </Reveal>
 
             <Reveal delay={0.3}>
               <div className="mt-8 flex flex-wrap gap-2">
-                {["React", "Next.js", "TypeScript", "Tailwind CSS", "Node.js", "PostgreSQL"].map((tag) => (
+                {["React", "Next.js", "Vue.js", "TypeScript", "Payload CMS", "PostgreSQL"].map((tag) => (
                   <span
                     key={tag}
                     className="rounded-lg border border-white/[0.07] bg-white/[0.03] px-3 py-1.5 font-body text-xs font-medium text-white/60"
@@ -113,12 +113,13 @@ const About = () => {
           </div>
 
           {/* Right — Stats + Pillars */}
-          <div className="space-y-6">
+          <div className="about-3d">
+          <div className="about-3d-inner space-y-6">
             {/* Stats grid */}
             <div className="grid grid-cols-2 gap-4">
               {stats.map((stat, i) => (
                 <Reveal key={stat.label} delay={i * 0.08} direction="scale">
-                  <div className="glass-card rounded-2xl p-5">
+                  <div className="about-stat glass-card rounded-2xl p-5">
                     <p className={`font-display text-3xl font-bold bg-gradient-to-r ${stat.color} bg-clip-text text-transparent`}>
                       {stat.value}
                     </p>
@@ -134,9 +135,8 @@ const About = () => {
                 const Icon = p.icon;
                 return (
                   <Reveal key={p.title} delay={0.2 + i * 0.08}>
-                    <motion.div
-                      whileHover={{ x: 6, transition: { duration: 0.2 } }}
-                      className={`flex items-start gap-4 rounded-xl border ${p.bg} p-4`}
+                    <div
+                      className={`about-pillar flex items-start gap-4 rounded-xl border bg-white/[0.02] ${p.bg} p-4`}
                     >
                       <div className={`mt-0.5 shrink-0 ${p.color}`}>
                         <Icon className="h-5 w-5" />
@@ -145,11 +145,12 @@ const About = () => {
                         <h3 className={`font-display text-sm font-bold ${p.color}`}>{p.title}</h3>
                         <p className="mt-1 font-body text-xs leading-6 text-white/50">{p.description}</p>
                       </div>
-                    </motion.div>
+                    </div>
                   </Reveal>
                 );
               })}
             </div>
+          </div>
           </div>
         </div>
       </div>

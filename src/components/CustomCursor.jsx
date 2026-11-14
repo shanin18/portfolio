@@ -13,9 +13,15 @@ const CustomCursor = () => {
     let ringX = -100;
     let ringY = -100;
 
+    let running = false;
+
     const onMove = (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
+      if (!running) {
+        running = true;
+        rafId = requestAnimationFrame(tick);
+      }
     };
 
     const tick = () => {
@@ -31,11 +37,15 @@ const CustomCursor = () => {
         ringRef.current.style.transform = `translate(${ringX - 18}px, ${ringY - 18}px)`;
       }
 
+      // Sleep once the ring has caught up; the next mousemove wakes it.
+      if (Math.abs(mouseX - ringX) < 0.1 && Math.abs(mouseY - ringY) < 0.1) {
+        running = false;
+        return;
+      }
       rafId = requestAnimationFrame(tick);
     };
 
     window.addEventListener("mousemove", onMove, { passive: true });
-    rafId = requestAnimationFrame(tick);
 
     return () => {
       window.removeEventListener("mousemove", onMove);

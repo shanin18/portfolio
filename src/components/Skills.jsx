@@ -2,6 +2,8 @@ import React from "react";
 import { motion } from "framer-motion";
 import Reveal from "./Reveal";
 import {
+  SiVuedotjs,
+  SiPayloadcms,
   SiHtml5,
   SiCss3,
   SiBootstrap,
@@ -30,10 +32,11 @@ const categories = [
   {
     label: "Frontend",
     color: "from-purple-500 to-fuchsia-500",
-    glow: "rgba(168,85,247,0.3)",
+    glow: "rgba(255,85,51,0.3)",
     skills: [
       { name: "React", icon: SiReact },
       { name: "Next.js", icon: SiNextdotjs },
+      { name: "Vue.js", icon: SiVuedotjs },
       { name: "TypeScript", icon: SiTypescript },
       { name: "JavaScript", icon: SiJavascript },
       { name: "HTML5", icon: SiHtml5 },
@@ -43,7 +46,7 @@ const categories = [
   {
     label: "Styling & UI",
     color: "from-cyan-500 to-blue-500",
-    glow: "rgba(6,182,212,0.3)",
+    glow: "rgba(255,171,26,0.3)",
     skills: [
       { name: "Tailwind CSS", icon: SiTailwindcss },
       { name: "Bootstrap", icon: SiBootstrap },
@@ -70,6 +73,7 @@ const categories = [
       { name: "PostgreSQL", icon: SiPostgresql },
       { name: "MongoDB", icon: SiMongodb },
       { name: "Prisma", icon: SiPrisma },
+      { name: "Payload CMS", icon: SiPayloadcms },
       { name: "Mongoose", icon: FaDatabase },
       { name: "Firebase", icon: SiFirebase },
       { name: "SQLite", icon: SiSqlite },
@@ -117,7 +121,7 @@ const SkillTag = ({ name, icon: Icon, glowColor }) => (
 
 const Skills = () => {
   return (
-    <section id="skills" className="relative overflow-hidden bg-[#080810] py-28">
+    <section id="skills" className="relative overflow-hidden py-28">
       {/* Orb */}
       <div className="pointer-events-none absolute left-[-10%] top-1/2 h-[350px] w-[350px] -translate-y-1/2 rounded-full bg-cyan-700/10 blur-[100px]" />
 

@@ -1,11 +1,12 @@
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { useRef } from "react";
-import { FiArrowRight, FiArrowUpRight } from "react-icons/fi";
+import { FiArrowRight } from "react-icons/fi";
+import HeroStack from "./HeroStack";
 
 const stats = [
   { value: "50+", label: "Sites Built" },
   { value: "3+", label: "Years Exp." },
-  { value: "16+", label: "Projects" },
+  { value: "23+", label: "Projects" },
   { value: "6+", label: "Technologies" },
 ];
 
@@ -45,15 +46,12 @@ const AnimatedWords = ({ text, className, baseDelay = 0 }) => {
 
 const Hero = () => {
   const ref = useRef(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
   return (
     <section
       ref={ref}
       id="home"
-      className="relative flex min-h-screen items-center overflow-hidden bg-[#080810]"
+      className="relative flex min-h-screen items-center overflow-hidden"
     >
       {/* Gradient orbs */}
       <div className="pointer-events-none absolute inset-0">
@@ -65,9 +63,13 @@ const Hero = () => {
       {/* Dot grid */}
       <div className="pointer-events-none absolute inset-0 dot-grid opacity-40" />
 
-      {/* Parallax container */}
+      {/* 3D stack */}
+      <div className="pointer-events-none absolute right-[4%] top-1/2 z-0 hidden -translate-y-1/2 lg:block xl:right-[8%]">
+        <HeroStack />
+      </div>
+
+      {/* Content */}
       <motion.div
-        style={{ y, opacity }}
         className="container relative z-10 mx-auto px-4 pb-20 pt-32"
       >
         {/* Eyebrow badge */}
@@ -75,7 +77,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="mb-8 inline-flex items-center gap-2.5 rounded-full border border-white/[0.1] bg-white/[0.04] px-4 py-2 text-sm text-white/60 backdrop-blur-sm"
+          className="mb-8 inline-flex items-center gap-2.5 rounded-full border border-white/[0.1] bg-white/[0.04] px-4 py-2 text-sm text-white/60 "
         >
           <span className="relative flex h-2 w-2">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
@@ -99,7 +101,7 @@ const Hero = () => {
             </span>
           </div>
           <div className="mt-2 text-4xl sm:text-5xl lg:text-7xl text-white/80">
-            <AnimatedWords text="Frontend Developer" baseDelay={6} />
+            <AnimatedWords text="Software Developer" baseDelay={6} />
           </div>
         </h1>
 
@@ -128,21 +130,6 @@ const Hero = () => {
             >
               View Work
               <FiArrowRight className="transition-transform group-hover:translate-x-1" />
-            </motion.button>
-          </a>
-
-          <a
-            href="https://drive.google.com/file/d/1jNmv4UrHoPes1v8w4-sY2btUzlvREyd4/view?usp=sharing"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <motion.button
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-              className="btn-ghost font-body"
-            >
-              Resume
-              <FiArrowUpRight />
             </motion.button>
           </a>
 

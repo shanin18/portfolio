@@ -8,13 +8,27 @@ gsap.registerPlugin(ScrollTrigger);
 
 const experiences = [
   {
+    company: "North South University",
+    role: "Software Developer",
+    type: "Full-time · On-site",
+    duration: "Sep 2026 – Present",
+    tag: "Current",
+    color: "from-cyan-500 to-purple-500",
+    glow: "rgba(255,171,26,0.25)",
+    points: [
+      "Developing and modernizing North South University's official Admission Portal frontend with Vue.js, integrated with a Symfony backend.",
+      "Engineering responsive, reusable UI components and dynamic interfaces that streamline admission workflows.",
+      "Improving usability and cross-device performance for applicants, students and admission staff.",
+    ],
+  },
+  {
     company: "Spritztech",
     role: "Frontend Developer",
     type: "Full-time · On-site",
-    duration: "Feb 2025 – Present",
-    tag: "Current",
+    duration: "Feb 2025 – Jul 2026",
+    tag: "Product",
     color: "from-purple-500 to-fuchsia-500",
-    glow: "rgba(168,85,247,0.25)",
+    glow: "rgba(255,85,51,0.25)",
     points: [
       "Shipped stable frontend updates with clean, reusable UI components across multiple product surfaces.",
       "Collaborated with cross-functional teams to translate product requirements into polished user flows.",
@@ -29,7 +43,7 @@ const experiences = [
     duration: "Aug 2024 – Jul 2025 · 1 yr",
     tag: "Agency",
     color: "from-cyan-500 to-blue-500",
-    glow: "rgba(6,182,212,0.25)",
+    glow: "rgba(255,171,26,0.25)",
     points: [
       "Collaborated with designers, developers and clients to deliver polished client websites on schedule.",
       "Accelerated project velocity by converting requirements into reliable, responsive UI components.",
@@ -63,7 +77,7 @@ const ExperienceCard = ({ company, role, type, duration, tag, color, glow, point
     >
       {/* Timeline dot */}
       <div
-        className={`absolute -left-[5px] top-6 h-2.5 w-2.5 rounded-full bg-gradient-to-br ${color} ring-4 ring-[#080810]`}
+        className={`absolute -left-[5px] top-6 h-2.5 w-2.5 rounded-full bg-gradient-to-br ${color} ring-4 ring-[#0b0a09]`}
         style={{ boxShadow: `0 0 12px ${glow}` }}
       />
 
@@ -136,7 +150,7 @@ const Experience = () => {
   }, []);
 
   return (
-    <section id="experience" ref={sectionRef} className="relative overflow-hidden bg-[#0c0c1a] py-28">
+    <section id="experience" ref={sectionRef} className="relative overflow-hidden py-28">
       {/* Orb */}
       <div className="pointer-events-none absolute right-[-10%] top-1/3 h-[350px] w-[350px] rounded-full bg-fuchsia-700/8 blur-[100px]" />
 

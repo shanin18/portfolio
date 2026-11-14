@@ -11,10 +11,94 @@ import freyeImg from "../assets/thumbs/freye-thumb.jpg";
 import fluteImg from "../assets/thumbs/flute-thumb.jpg";
 import gadgetGalleryImg from "../assets/thumbs/gadgetgallery-thumb.jpg";
 import eyeSolutionsImg from "../assets/thumbs/eye-solutions-thumb.jpg";
+import athlexImg from "../assets/thumbs/athlex-thumb.jpg";
+import banklopediaImg from "../assets/thumbs/banklopedia-thumb.jpg";
+import gapImg from "../assets/thumbs/gap-thumb.jpg";
+import ledgerImg from "../assets/thumbs/pocket-ledger-thumb.jpg";
+import deshiImg from "../assets/thumbs/deshi-simulator-thumb.jpg";
+import officeImg from "../assets/thumbs/office-3d-thumb.jpg";
+import foodImg from "../assets/thumbs/food-delivery-thumb.jpg";
 
-const filterOptions = ["All", "Next.js", "React", "HTML/CSS"];
+const filterOptions = ["All", "Next.js", "React", "3D / WebGL", "Mobile", "HTML/CSS"];
 
 const projects = [
+  {
+    id: 17,
+    title: "Global Admission Platform",
+    images: [gapImg],
+    summery:
+      "A production website for a study-abroad consultancy, with country and service pages, appointment booking, a Payload CMS for editors, and a CRM for staff to track student leads from enquiry to application.",
+    liveLink: "https://globaladmissionplatform.com",
+    technology: "Next.js",
+    impact: "Live client business site with content managed in-house and a lead pipeline for the staff.",
+    stack: ["Next.js", "TypeScript", "Payload CMS", "PostgreSQL", "CRM", "Vercel"],
+  },
+  {
+    id: 18,
+    title: "BankLopedia",
+    images: [banklopediaImg],
+    summery:
+      "An exam-prep platform for Bangladesh banking diplomas (JAIBB, AIBB, DIB). It has 70 subjects in English and Bangla, plain-language search over a question bank, AI-generated answers, MCQ tests, subscriptions with aamarPay, OTP sign-up, and an admin panel with an AI review queue.",
+    liveLink: "https://banklopedia.vercel.app",
+    technology: "Next.js",
+    impact: "Bilingual learning product with paid access, search over a question bank and AI answers.",
+    stack: ["Next.js", "Prisma", "PostgreSQL", "NextAuth", "Gemini AI", "Algolia", "aamarPay"],
+  },
+  {
+    id: 19,
+    title: "Athlex",
+    images: [athlexImg],
+    summery:
+      "A sponsorship marketplace where athletes show their audience reach and brands find, vet and sponsor them. It has separate athlete and sponsor dashboards, filtered discovery, inquiries, deals, payouts and billing, with row-level security on every table.",
+    liveLink: "https://hire-athlets.vercel.app",
+    technology: "Next.js",
+    impact: "Two-sided marketplace with role-based dashboards and a secure data model.",
+    stack: ["Next.js 15", "TypeScript", "Supabase", "PostgreSQL", "Tailwind CSS", "Stripe-ready"],
+  },
+  {
+    id: 20,
+    title: "Deshi Simulator",
+    images: [deshiImg],
+    summery:
+      "A 3D browser game about Dhaka rickshaw pullers: deliver passengers and cargo through Mirpur's real road network, walk the streets, cross the river by nouka or fly a plane. It has missions, free roam and online multiplayer rooms of up to 16 players with chat and races. All of the game's text is in Bengali.",
+    liveLink: "https://deshi-simulator.onrender.com",
+    technology: "3D / WebGL",
+    impact: "Full 3D game with real-time multiplayer and touch, keyboard and gamepad controls, all in the browser.",
+    stack: ["three.js", "WebGL", "Node.js", "WebSockets", "Game design"],
+  },
+  {
+    id: 21,
+    title: "Office of Admissions 3D",
+    images: [officeImg],
+    summery:
+      "An interactive 3D walkthrough of a real admissions office, rebuilt from photos and video. Visitors can jump between camera spots like the front desk and corridor, or walk freely with WASD or by dragging on mobile.",
+    liveLink: "https://office-of-admissions-3d.vercel.app",
+    technology: "3D / WebGL",
+    impact: "Lets visitors explore a physical office in the browser before they arrive.",
+    stack: ["three.js", "WebGL", "3D modelling", "Mobile touch"],
+  },
+  {
+    id: 22,
+    title: "Pocket Ledger",
+    images: [ledgerImg],
+    summery:
+      "An expense tracker that works offline and installs on your phone as an app. All data stays on the device, and you can turn on end-to-end encrypted sync between devices, which merges changes from each device without conflicts.",
+    liveLink: "http://zentfin.vercel.app",
+    technology: "React",
+    impact: "Private by default: works without signal, with zero-knowledge sync when you want it.",
+    stack: ["React", "Vite", "PWA", "IndexedDB", "Supabase", "E2E encryption", "Vitest"],
+  },
+  {
+    id: 23,
+    title: "Food Delivery App",
+    images: [foodImg],
+    summery:
+      "A cross-platform food delivery app with customer, restaurant-owner and courier flows: onboarding, browsing and cart, payment, order tracking, courier chat, plus a restaurant dashboard for menu, opening hours, reviews and withdrawals.",
+    liveLink: "https://food-delivery-ruddy-psi.vercel.app",
+    technology: "Mobile",
+    impact: "One codebase for iOS, Android and web, covering all three sides of a delivery business.",
+    stack: ["Expo", "React Native", "TypeScript", "Supabase", "Expo Router"],
+  },
   {
     id: 15,
     title: "GadgetGallery",
@@ -206,6 +290,24 @@ const projects = [
   },
 ];
 
+const featuredOrder = [
+  "Global Admission Platform",
+  "GadgetGallery",
+  "Pocket Ledger",
+  "BankLopedia",
+  "Eye Solutions",
+  "Athlex",
+  "Yachtease",
+  "Deshi Simulator",
+  "Food Delivery App",
+  "Office of Admissions 3D",
+];
+const rank = (p) => {
+  const i = featuredOrder.indexOf(p.title);
+  return i === -1 ? featuredOrder.length : i;
+};
+projects.sort((a, b) => rank(a) - rank(b));
+
 const Projects = () => {
   const [activeFilter, setActiveFilter] = useState("All");
 
@@ -214,7 +316,7 @@ const Projects = () => {
     : projects.filter((p) => p.technology === activeFilter);
 
   return (
-    <section id="projects" className="relative overflow-hidden bg-[#0c0c1a] py-28">
+    <section id="projects" className="relative overflow-hidden py-28">
       {/* Orb */}
       <div className="pointer-events-none absolute left-[-8%] top-1/4 h-[400px] w-[400px] rounded-full bg-cyan-700/8 blur-[100px]" />
 
@@ -235,7 +337,7 @@ const Projects = () => {
           <Reveal delay={0.15}>
             <div>
               <p className="mb-6 font-body text-white/45">
-                Websites, dashboards, eCommerce, booking systems, and content platforms built with modern tooling.
+                Production platforms, marketplaces, 3D experiences, multiplayer games and mobile apps, from database to the last pixel.
               </p>
               {/* Filters */}
               <div className="relative flex flex-wrap gap-2">
@@ -275,7 +377,7 @@ const Projects = () => {
           >
             {filtered.length > 0 ? (
               filtered.map((project, idx) => (
-                <ProjectCard key={project.id} project={project} index={idx} />
+                <ProjectCard key={project.id} project={project} index={idx} featured={activeFilter === "All" && idx === 0} />
               ))
             ) : (
               <p className="col-span-full py-16 text-center font-body text-white/40">

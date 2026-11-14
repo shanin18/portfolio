@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
 import { FiExternalLink, FiGithub } from "react-icons/fi";
-import LazyLoad from "react-lazy-load";
 
-const ProjectCard = ({ project, index = 0 }) => {
+const canHover = typeof window !== "undefined" && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+const ProjectCard = ({ project, index = 0, featured = false }) => {
   const [expanded, setExpanded] = useState(false);
   const {
     images,
@@ -15,10 +16,12 @@ const ProjectCard = ({ project, index = 0 }) => {
     technology,
     impact,
     stack = [],
+    status,
   } = project;
 
   const thumbnail = images?.[0];
-  const shouldTruncate = summery.length > 135;
+  const limit = featured ? 320 : 135;
+  const shouldTruncate = summery.length > limit;
 
   // 3D tilt
   const x = useMotionValue(0);
@@ -27,6 +30,7 @@ const ProjectCard = ({ project, index = 0 }) => {
   const rotateY = useSpring(useTransform(x, [-80, 80], [-8, 8]), { stiffness: 300, damping: 30 });
 
   const handleMouseMove = (e) => {
+    if (!canHover) return;
     const rect = e.currentTarget.getBoundingClientRect();
     x.set(e.clientX - rect.left - rect.width / 2);
     y.set(e.clientY - rect.top - rect.height / 2);
@@ -41,46 +45,43 @@ const ProjectCard = ({ project, index = 0 }) => {
     "Next.js": "bg-white/[0.06] text-white/70 border-white/[0.08]",
     "React": "bg-cyan-500/10 text-cyan-400/80 border-cyan-500/20",
     "HTML/CSS": "bg-orange-500/10 text-orange-400/80 border-orange-500/20",
+    "3D / WebGL": "bg-emerald-500/10 text-emerald-300/90 border-emerald-500/25",
+    "Mobile": "bg-amber-500/10 text-amber-300/90 border-amber-500/25",
   };
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.15 }}
-      transition={{ duration: 0.6, delay: index * 0.08 }}
+      className={featured ? "sm:col-span-2 lg:col-span-3" : ""}
     >
       <motion.article
-        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+        style={{ rotateX, rotateY }}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
-        className="glass-card group relative overflow-hidden rounded-2xl transition-all duration-300 hover:border-white/[0.12] hover:shadow-[0_20px_60px_rgba(0,0,0,0.5)]"
+        className={`card-3d glass-card group relative h-full overflow-hidden rounded-2xl ${featured ? "lg:grid lg:grid-cols-[1.35fr_1fr]" : ""} transition-all duration-300`}
       >
         {/* Image */}
         <div className="relative overflow-hidden">
-          <div className="aspect-[16/9]">
+          <div className={featured ? "aspect-[16/9] lg:aspect-auto lg:h-full" : "aspect-[16/9]"}>
             {thumbnail ? (
-              <LazyLoad className="h-full w-full">
-                <img
+                              <img
                   src={thumbnail}
                   alt={`${title} preview`}
                   loading="lazy"
                   decoding="async"
                   className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
-              </LazyLoad>
             ) : (
               <div className="h-full w-full bg-gradient-to-br from-purple-900/40 to-cyan-900/40" />
             )}
           </div>
 
           {/* Overlay on hover */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#080810] via-[#080810]/40 to-transparent opacity-60 transition-opacity duration-300 group-hover:opacity-80" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0b0a09] via-[#0b0a09]/40 to-transparent opacity-60 transition-opacity duration-300 group-hover:opacity-80" />
 
           {/* Tech tag overlay */}
           <div className="absolute left-4 top-4">
             <span
-              className={`rounded-full border px-3 py-1 font-body text-[10px] font-bold uppercase tracking-wider backdrop-blur-sm ${
+              className={`rounded-full border px-3 py-1 font-body text-[10px] font-bold uppercase tracking-wider bg-[#0b0a09]/80 ${
                 techColors[technology] || "bg-white/[0.06] text-white/60 border-white/[0.08]"
               }`}
             >
@@ -97,8 +98,11 @@ const ProjectCard = ({ project, index = 0 }) => {
         </div>
 
         {/* Content */}
-        <div className="p-6">
-          <h3 className="font-display text-xl font-bold text-white">{title}</h3>
+        <div className={featured ? "flex flex-col justify-center p-6 lg:p-10" : "p-6"}>
+          {featured && (
+            <p className="mb-3 font-body text-[11px] font-bold uppercase tracking-[0.2em] text-purple-300/80">Featured project</p>
+          )}
+          <h3 className={`font-display font-bold text-white ${featured ? "text-3xl" : "text-xl"}`}>{title}</h3>
 
           {impact && (
             <p className="mt-2 font-body text-sm font-medium leading-6 text-white/60">
@@ -109,7 +113,7 @@ const ProjectCard = ({ project, index = 0 }) => {
           <div className="mt-3">
             <p className="font-body text-sm leading-7 text-white/40">
               {shouldTruncate && !expanded
-                ? `${summery.substring(0, 135)}... `
+                ? `${summery.substring(0, limit)}... `
                 : summery + " "}
               {shouldTruncate && (
                 <button
@@ -138,12 +142,17 @@ const ProjectCard = ({ project, index = 0 }) => {
 
           {/* Links */}
           <div className="mt-6 flex flex-wrap gap-3">
+            {!liveLink && status && (
+              <span className="inline-flex items-center gap-2 rounded-xl border border-amber-500/25 bg-amber-500/10 px-4 py-2 font-body text-sm font-medium text-amber-300/90">
+                {status}
+              </span>
+            )}
             {liveLink && (
               <a
                 href={liveLink}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-purple-500 to-cyan-500 px-4 py-2 font-body text-sm font-semibold text-white transition-all hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] hover:scale-[1.02]"
+                className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-purple-500 to-cyan-500 px-4 py-2 font-body text-sm font-semibold text-white transition-all hover:shadow-[0_0_20px_rgba(255,85,51,0.4)] hover:scale-[1.02]"
               >
                 <FiExternalLink className="h-3.5 w-3.5" />
                 Live Demo

@@ -1,6 +1,6 @@
 import About from "./components/About";
+import World from "./components/World";
 import Contact from "./components/Contact";
-import CustomCursor from "./components/CustomCursor";
 import Experience from "./components/Experience";
 import Footer from "./components/Footer";
 import Hero from "./components/Hero";
@@ -12,7 +12,7 @@ import Skills from "./components/Skills";
 function App() {
   return (
     <>
-      <CustomCursor />
+      <World />
       <Navbar />
       <Hero />
       <About />

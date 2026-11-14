@@ -7,14 +7,14 @@ const steps = [
     title: "Understand",
     text: "Deep dive into the goal, users, and scope. No assumptions — just clarity.",
     color: "from-purple-500 to-fuchsia-500",
-    glow: "rgba(168,85,247,0.25)",
+    glow: "rgba(255,85,51,0.25)",
   },
   {
     number: "02",
     title: "Structure",
     text: "Map out pages, information flows, and content architecture before writing a line.",
     color: "from-cyan-500 to-blue-500",
-    glow: "rgba(6,182,212,0.25)",
+    glow: "rgba(255,171,26,0.25)",
   },
   {
     number: "03",
@@ -34,7 +34,7 @@ const steps = [
 
 const Process = () => {
   return (
-    <section id="process" className="relative overflow-hidden bg-[#080810] py-28">
+    <section id="process" className="relative overflow-hidden py-28">
       {/* Orb */}
       <div className="pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-purple-900/10 blur-[120px]" />
 
