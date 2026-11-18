@@ -25,22 +25,18 @@ const Contact = () => {
     setSending(true);
     const id = toast.loading("Sending your message…");
     try {
-      if (data.get("_honey")) throw new Error("spam");
-      const res = await fetch("https://formsubmit.co/ajax/shamimhosan02@gmail.com", {
+      const res = await fetch("/api/contact", {
         method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: data.get("user_name"),
           email: data.get("user_email"),
           message: data.get("message"),
-          _subject: `Portfolio enquiry from ${data.get("user_name") || "a visitor"}`,
-          _replyto: data.get("user_email"),
-          _template: "table",
-          _captcha: "false",
+          _honey: data.get("_honey"),
         }),
       });
       const json = await res.json().catch(() => ({}));
-      if (!res.ok || String(json.success) !== "true") throw new Error(json.message || `HTTP ${res.status}`);
+      if (!res.ok || !json.ok) throw new Error(json.error || `HTTP ${res.status}`);
       formEl.reset();
       toast.success("Message sent", { id, description: "Thanks! I'll get back to you shortly." });
     } catch (err) {
