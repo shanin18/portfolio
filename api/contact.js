@@ -83,10 +83,10 @@ export default async function handler(req, res) {
       host: HOST,
       port: PORT,
       secure: PORT === 465,
-      auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
+      auth: { user: process.env.SMTP_USER.trim(), pass: process.env.SMTP_PASS.replace(/\s+/g, "") },
     });
     await transporter.sendMail({
-      from: `"Portfolio · ${name.replace(/"/g, "")}" <${process.env.SMTP_USER}>`,
+      from: `"Portfolio · ${name.replace(/"/g, "")}" <${process.env.SMTP_USER.trim()}>`,
       to: TO,
       replyTo: `"${name.replace(/"/g, "")}" <${email}>`,
       subject: `New message from ${name} · Portfolio`,
