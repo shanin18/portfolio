@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { FaGithub, FaLinkedin, FaDiscord } from "react-icons/fa";
 import { FiMail, FiSend } from "react-icons/fi";
-import { toast } from "sonner";
+import { notify } from "./Toast";
 import Reveal from "./Reveal";
 
 const socials = [
@@ -23,7 +23,7 @@ const Contact = () => {
     const formEl = e.currentTarget;
     const data = new FormData(formEl);
     setSending(true);
-    const id = toast.loading("Sending your message…");
+    const id = notify.loading("Sending your message…");
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
@@ -38,13 +38,13 @@ const Contact = () => {
       const json = await res.json().catch(() => ({}));
       if (!res.ok || !json.ok) throw new Error(json.error || `HTTP ${res.status}`);
       formEl.reset();
-      toast.success("Message sent", { id, description: "Thanks! I'll get back to you shortly." });
+      notify.success("Message sent", { id, description: "Thanks! I'll get back to you shortly." });
     } catch (err) {
       console.error("Contact form:", err);
       const body = encodeURIComponent(`${data.get("message") || ""}
 
 — ${data.get("user_name") || ""} (${data.get("user_email") || ""})`);
-      toast.error("Couldn't send right now", {
+      notify.error("Couldn't send right now", {
         id,
         description: "Your message is still here. You can email me directly instead.",
         duration: 10000,

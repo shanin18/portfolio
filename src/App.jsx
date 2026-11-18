@@ -14,20 +14,7 @@ function App() {
   return (
     <>
       <World />
-      <Toaster
-        theme="dark"
-        position="bottom-right"
-        closeButton
-        toastOptions={{
-          style: {
-            background: "rgba(20,18,16,0.96)",
-            border: "1px solid rgba(255,255,255,0.08)",
-            color: "#f1f5f9",
-            fontFamily: "Manrope, sans-serif",
-            borderRadius: "14px",
-          },
-        }}
-      />
+      <Toaster position="bottom-right" gap={10} offset={24} toastOptions={{ unstyled: true }} />
       <Navbar />
       <Hero />
       <About />

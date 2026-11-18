@@ -289,3 +289,39 @@ html.lenis, html.lenis body { height: auto; }
 
 html { scrollbar-width: none; }
 html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; }
+
+/* ── Custom toast ────────────────────────────────────────────── */
+.toast-card {
+  position: relative; display: flex; align-items: flex-start; gap: 12px;
+  width: 360px; max-width: calc(100vw - 32px); padding: 14px 40px 16px 14px; overflow: hidden;
+  border-radius: 16px; border: 1px solid rgba(255,255,255,.08);
+  background: linear-gradient(160deg, rgba(255,255,255,.06), rgba(255,255,255,.01) 60%), rgba(16,14,12,.97);
+  box-shadow: 0 24px 60px -20px rgba(0,0,0,.85), inset 0 1px 0 rgba(255,255,255,.06), -3px 0 0 0 var(--tone);
+  font-family: Manrope, sans-serif; color: #f1f5f9;
+}
+.toast-icon {
+  flex: none; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 10px;
+  color: var(--tone); font-size: 16px;
+  background: color-mix(in srgb, var(--tone) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--tone) 35%, transparent);
+}
+.toast-spinner { width: 15px; height: 15px; border-radius: 50%; border: 2px solid currentColor; border-right-color: transparent; animation: toast-spin .7s linear infinite; }
+.toast-label { font: 600 10px/1 ui-monospace, Consolas, monospace; letter-spacing: .18em; text-transform: uppercase; color: var(--tone); }
+.toast-title { margin-top: 6px; font-weight: 700; font-size: 14px; color: #fff; }
+.toast-desc { margin-top: 3px; font-size: 12.5px; line-height: 1.55; color: rgba(255,255,255,.55); }
+.toast-action {
+  margin-top: 10px; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; color: #fff;
+  background: linear-gradient(90deg, #ff5533, #ffab1a); transition: filter .2s;
+}
+.toast-action:hover { filter: brightness(1.1); }
+.toast-close {
+  position: absolute; top: 10px; right: 10px; display: grid; place-items: center; width: 24px; height: 24px;
+  border-radius: 7px; color: rgba(255,255,255,.4); transition: background .2s, color .2s;
+}
+.toast-close:hover { background: rgba(255,255,255,.08); color: #fff; }
+.toast-progress {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 2px; transform-origin: left;
+  background: var(--tone); opacity: .7; animation: toast-progress linear forwards;
+}
+@keyframes toast-spin { to { transform: rotate(360deg); } }
+@keyframes toast-progress { from { transform: scaleX(1); } to { transform: scaleX(0); } }
