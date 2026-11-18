@@ -1,9 +1,8 @@
-import { useRef } from "react";
-import emailjs from "@emailjs/browser";
+import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { FaGithub, FaLinkedin, FaDiscord } from "react-icons/fa";
 import { FiMail, FiSend } from "react-icons/fi";
-import Swal from "sweetalert2";
+import { toast } from "sonner";
 import Reveal from "./Reveal";
 
 const socials = [
@@ -16,34 +15,51 @@ const socials = [
 const Contact = () => {
   const form = useRef();
 
-  const handleSubmit = (e) => {
+  const [sending, setSending] = useState(false);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    emailjs
-      .sendForm("service_y0f21wk", "template_1jd5xag", form.current, "9NO7DMhDpjZct4IrZ")
-      .then(() => {
-        e.target.reset();
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Message sent!",
-          text: "I'll get back to you shortly.",
-          showConfirmButton: false,
-          timer: 2000,
-          background: "#181512",
-          color: "#f1f5f9",
-          iconColor: "#ff5533",
-        });
-      })
-      .catch((err) => {
-        console.error(err);
-        Swal.fire({
-          icon: "error",
-          title: "Something went wrong",
-          text: "Please try again or email me directly.",
-          background: "#181512",
-          color: "#f1f5f9",
-        });
+    if (sending) return;
+    const formEl = e.currentTarget;
+    const data = new FormData(formEl);
+    setSending(true);
+    const id = toast.loading("Sending your message…");
+    try {
+      if (data.get("_honey")) throw new Error("spam");
+      const res = await fetch("https://formsubmit.co/ajax/shamimhosan02@gmail.com", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          name: data.get("user_name"),
+          email: data.get("user_email"),
+          message: data.get("message"),
+          _subject: `Portfolio enquiry from ${data.get("user_name") || "a visitor"}`,
+          _replyto: data.get("user_email"),
+          _template: "table",
+          _captcha: "false",
+        }),
       });
+      const json = await res.json().catch(() => ({}));
+      if (!res.ok || String(json.success) !== "true") throw new Error(json.message || `HTTP ${res.status}`);
+      formEl.reset();
+      toast.success("Message sent", { id, description: "Thanks! I'll get back to you shortly." });
+    } catch (err) {
+      console.error("Contact form:", err);
+      const body = encodeURIComponent(`${data.get("message") || ""}
+
+— ${data.get("user_name") || ""} (${data.get("user_email") || ""})`);
+      toast.error("Couldn't send right now", {
+        id,
+        description: "Your message is still here. You can email me directly instead.",
+        duration: 10000,
+        action: {
+          label: "Email me",
+          onClick: () => (window.location.href = `mailto:shamimhosan02@gmail.com?subject=${encodeURIComponent("Portfolio enquiry")}&body=${body}`),
+        },
+      });
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -123,6 +139,7 @@ const Contact = () => {
               onSubmit={handleSubmit}
               className="glass-card space-y-4 rounded-2xl p-8"
             >
+              <input type="text" name="_honey" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-1.5">
                   <label className="font-body text-xs font-medium text-white/40">Name</label>
@@ -159,11 +176,13 @@ const Contact = () => {
 
               <motion.button
                 type="submit"
+                disabled={sending}
+                aria-busy={sending}
                 whileHover={{ scale: 1.02, boxShadow: "0 0 30px rgba(255,85,51,0.4)" }}
                 whileTap={{ scale: 0.97 }}
-                className="btn-gradient w-full justify-center font-body"
+                className="btn-gradient w-full justify-center font-body disabled:cursor-wait disabled:opacity-70"
               >
-                Send Message
+                {sending ? "Sending…" : "Send Message"}
                 <FiSend className="h-4 w-4" />
               </motion.button>
 
