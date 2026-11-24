@@ -46,6 +46,17 @@ const projects = [
     stack: ["Next.js", "Prisma", "PostgreSQL", "NextAuth", "Gemini AI", "Algolia", "aamarPay"],
   },
   {
+    id: 24,
+    title: "Makeover Salon Landing Page (Concept)",
+    images: [salonImg],
+    summery:
+      "An unofficial redesign concept for Farzana Shakil's Makeover Salon, a Dhaka salon chain with four branches. It has a bilingual English and Bangla switch, a service picker, a bridal section, an offers strip, branch cards with tap-to-call, and a booking form that checks Bangladeshi phone numbers. Not affiliated with the salon; sample photos are from Pexels.",
+    technology: "HTML/CSS",
+    impact: "Self-initiated pitch: a faster, mobile-first, bilingual site that sends visitors straight to booking.",
+    stack: ["HTML", "CSS", "JavaScript", "i18n (EN/BN)", "Responsive", "Landing page"],
+    status: "Concept redesign · demo on request",
+  },
+  {
     id: 19,
     title: "Athlex",
     images: [athlexImg],
@@ -121,17 +132,6 @@ const projects = [
     technology: "Next.js",
     impact: "Connected care workflow for clinics and optical businesses, from patient booking to inventory and billing visibility.",
     stack: ["Next.js", "React", "TypeScript", "Prisma", "PostgreSQL", "Neon", "Tailwind CSS", "Cloudinary", "Nodemailer", "Vercel"],
-  },
-  {
-    id: 24,
-    title: "Makeover Salon Landing Page (Concept)",
-    images: [salonImg],
-    summery:
-      "An unofficial redesign concept for Farzana Shakil's Makeover Salon, a Dhaka salon chain with four branches. It has a bilingual English and Bangla switch, a service picker, a bridal section, an offers strip, branch cards with tap-to-call, and a booking form that checks Bangladeshi phone numbers. Not affiliated with the salon; sample photos are from Pexels.",
-    technology: "HTML/CSS",
-    impact: "Self-initiated pitch: a faster, mobile-first, bilingual site that sends visitors straight to booking.",
-    stack: ["HTML", "CSS", "JavaScript", "i18n (EN/BN)", "Responsive", "Landing page"],
-    status: "Concept redesign · demo on request",
   },
   {
     id: 1,
