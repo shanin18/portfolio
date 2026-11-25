@@ -1,10 +1,6 @@
-import { useRef, useEffect } from "react";
-import { motion } from "framer-motion";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useRef } from "react";
+import { motion, useScroll, useSpring } from "framer-motion";
 import Reveal from "./Reveal";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const experiences = [
   {
@@ -127,27 +123,9 @@ const ExperienceCard = ({ company, role, type, duration, tag, color, glow, point
 
 const Experience = () => {
   const sectionRef = useRef(null);
-  const lineRef = useRef(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        lineRef.current,
-        { scaleY: 0, transformOrigin: "top center" },
-        {
-          scaleY: 1,
-          ease: "none",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 70%",
-            end: "bottom 30%",
-            scrub: 1.2,
-          },
-        }
-      );
-    }, sectionRef);
-    return () => ctx.revert();
-  }, []);
+  // Timeline rail fills as the section scrolls past (top hits 70% of the viewport → bottom hits 30%).
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start 0.7", "end 0.3"] });
+  const scaleY = useSpring(scrollYProgress, { stiffness: 120, damping: 30, restDelta: 0.001 });
 
   return (
     <section id="experience" ref={sectionRef} className="relative overflow-hidden py-28">
@@ -179,8 +157,8 @@ const Experience = () => {
         <div className="relative ml-2">
           {/* Vertical rail */}
           <div className="absolute left-0 top-0 h-full w-px bg-white/[0.06]">
-            <div
-              ref={lineRef}
+            <motion.div
+              style={{ scaleY }}
               className="absolute inset-0 origin-top bg-gradient-to-b from-purple-500 via-cyan-500 to-amber-500"
             />
           </div>
