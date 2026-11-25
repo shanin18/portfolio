@@ -53,7 +53,7 @@ function template({ name, email, message, sentAt }) {
       </div>
     </td></tr>
     <tr><td style="padding:18px 4px 0;font-size:12px;color:#6b645e;line-height:1.6;">
-      Sent from the contact form on <a href="https://shamim-pi.vercel.app" style="color:#8a837c;">shamim-pi.vercel.app</a> · ${esc(sentAt)}<br>
+      Sent from the contact form on <a href="https://shamim-hosan.vercel.app" style="color:#8a837c;">shamim-hosan.vercel.app</a> · ${esc(sentAt)}<br>
       Hitting reply in your mail app also answers ${esc(email)} directly.
     </td></tr>
   </table>
