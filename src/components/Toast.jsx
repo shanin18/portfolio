@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components -- notify() helpers live beside the toast card on purpose */
 import { toast } from "sonner";
 import { FiCheck, FiX, FiAlertTriangle } from "react-icons/fi";
 
@@ -19,7 +20,7 @@ const ToastCard = ({ id, type, title, description, action, duration }) => {
       </div>
 
       <div className="min-w-0 flex-1">
-        <p className="toast-label">// {tone.label}</p>
+        <p className="toast-label">{"// "}{tone.label}</p>
         <p className="toast-title">{title}</p>
         {description && <p className="toast-desc">{description}</p>}
         {action && (

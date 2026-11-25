@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { motion, useScroll, AnimatePresence } from "framer-motion";
 import { HiOutlineBars3, HiOutlineXMark } from "react-icons/hi2";
 
 const navItems = [
