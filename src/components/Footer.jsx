@@ -1,5 +1,4 @@
 import { motion, useScroll, useSpring } from "framer-motion";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { FiArrowUp } from "react-icons/fi";
 
 const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
@@ -34,29 +33,8 @@ const Footer = () => {
             &copy; {new Date().getFullYear()} Syed Shamim Hosan. All rights reserved.
           </p>
 
-          {/* Links + Back to top */}
+          {/* Back to top */}
           <div className="flex items-center gap-4">
-            <motion.a
-              href="https://www.linkedin.com/in/syed-shamim-hosan/"
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ y: -3, color: "#60a5fa" }}
-              className="text-white/35 transition-colors"
-              aria-label="LinkedIn"
-            >
-              <FaLinkedin className="h-5 w-5" />
-            </motion.a>
-            <motion.a
-              href="https://github.com/shanin18"
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ y: -3, color: "#fff" }}
-              className="text-white/35 transition-colors"
-              aria-label="GitHub"
-            >
-              <FaGithub className="h-5 w-5" />
-            </motion.a>
-
             {/* Scroll to top */}
             <motion.button
               onClick={scrollToTop}
