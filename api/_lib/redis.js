@@ -41,6 +41,10 @@ export const K = {
   os: "pf:os",
   browser: "pf:browser",
   days: "pf:days", // hash YYYY-MM-DD (Dhaka) -> visits
+  source: "pf:source", // hash "#tag" (from ?ref=), referring site, or "Direct" -> visits
+  clicks: "pf:clicks", // hash click label -> count
+  events: "pf:events", // list of click JSON, newest first
 };
 
 export const MAX_VISITS = 5000;
+export const MAX_EVENTS = 2000;

@@ -115,6 +115,7 @@ const Contact = () => {
                     <motion.a
                       key={label}
                       href={href}
+                      data-track={`Contact: ${label}`}
                       target="_blank"
                       rel="noreferrer"
                       whileHover={{ y: -3, scale: 1.08 }}

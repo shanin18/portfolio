@@ -23,7 +23,7 @@ export default async function handler(req, res) {
   if (!redisReady()) return res.status(500).json({ ok: false, error: "Redis is not connected (KV_REST_API_URL / KV_REST_API_TOKEN)." });
 
   try {
-    const [total, unique, country, device, os, browser, days, rawVisits] = await pipeline([
+    const [total, unique, country, device, os, browser, days, source, clicks, rawVisits, rawEvents] = await pipeline([
       ["GET", K.total],
       ["PFCOUNT", K.uniq],
       ["HGETALL", K.country],
@@ -31,19 +31,27 @@ export default async function handler(req, res) {
       ["HGETALL", K.os],
       ["HGETALL", K.browser],
       ["HGETALL", K.days],
+      ["HGETALL", K.source],
+      ["HGETALL", K.clicks],
       ["LRANGE", K.visits, 0, 499],
+      ["LRANGE", K.events, 0, 99],
     ]);
 
-    const visits = (rawVisits || []).map((s) => {
-      try {
-        return JSON.parse(s);
-      } catch {
-        return null;
-      }
-    }).filter(Boolean);
+    const parse = (list) =>
+      (list || [])
+        .map((s) => {
+          try {
+            return JSON.parse(s);
+          } catch {
+            return null;
+          }
+        })
+        .filter(Boolean);
+    const visits = parse(rawVisits);
+    const events = parse(rawEvents);
 
     // Names only exist for visitors who sent the contact form.
-    const vids = [...new Set(visits.map((v) => v.vid))];
+    const vids = [...new Set([...visits, ...events].map((v) => v.vid))];
     let names = {};
     let firstSeen = {};
     if (vids.length) {
@@ -69,6 +77,9 @@ export default async function handler(req, res) {
       os: nums(toObject(os)),
       browser: nums(toObject(browser)),
       days: nums(toObject(days)),
+      source: nums(toObject(source)),
+      clicks: nums(toObject(clicks)),
+      events: events.map((e) => ({ ...e, who: names[e.vid] || null })),
       visits: visits.map((v) => ({ ...v, who: names[v.vid] || null, firstSeen: firstSeen[v.vid] || v.t })),
     });
   } catch (err) {

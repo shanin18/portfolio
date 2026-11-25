@@ -223,7 +223,7 @@ export default function Stats() {
     return data.visits.filter((v) => {
       if (namedOnly && !v.who) return false;
       if (!s) return true;
-      return [v.who?.name, v.who?.email, v.city, v.region, countryName(v.country), v.device, v.os, v.browser, v.ref]
+      return [v.who?.name, v.who?.email, v.src, v.city, v.region, countryName(v.country), v.device, v.os, v.browser, v.ref]
         .filter(Boolean)
         .some((x) => x.toLowerCase().includes(s));
     });
@@ -281,6 +281,12 @@ export default function Stats() {
         <Card title="Cities" right={<span className="text-xs text-[#6b645e]">last {data.visits.length} visits</span>}>
           <BarList data={derived.cities} />
         </Card>
+        <Card title="Where visitors came from" right={<span className="text-xs text-[#6b645e]">#tag = your ?ref= link</span>}>
+          <BarList data={data.source || {}} />
+        </Card>
+        <Card title="Most clicked" right={<span className="text-xs text-[#6b645e]">projects, socials, résumé</span>}>
+          <BarList data={data.clicks || {}} limit={10} />
+        </Card>
         <Card title="Devices">
           <BarList data={data.device} />
         </Card>
@@ -310,6 +316,26 @@ export default function Stats() {
             <p className="text-sm text-[#8a837c]">
               Nobody yet. Visitors are anonymous; a name shows up here once someone sends the contact form.
             </p>
+          )}
+        </Card>
+      </div>
+
+      <div className="mt-4">
+        <Card title="Recent clicks">
+          {data.events?.length ? (
+            <ul className="divide-y divide-white/[0.06]">
+              {data.events.slice(0, 15).map((e, i) => (
+                <li key={e.t + e.vid + i} className="flex items-center justify-between gap-4 py-2.5 text-sm">
+                  <span className="min-w-0 truncate text-[#e7e2dc]">{e.label}</span>
+                  <span className="shrink-0 text-right text-xs text-[#8a837c]">
+                    {e.who ? <span className="text-white">{e.who.name}</span> : `Visitor #${e.vid.slice(0, 4)}`} · {flag(e.country)} {place(e)} · {e.device} ·{" "}
+                    <span title={fmtTime(e.t)}>{ago(e.t)}</span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="text-sm text-[#8a837c]">No clicks yet. Clicks on project links, socials, email and your résumé show up here.</p>
           )}
         </Card>
       </div>
@@ -367,7 +393,10 @@ export default function Stats() {
                       {v.device} <span className="text-[#8a837c]">· {v.os} · {v.browser}</span>
                       {v.screen && <span className="block text-xs text-[#6b645e]">{v.screen}</span>}
                     </td>
-                    <td className="py-2.5 pr-4 text-[#8a837c]">{v.ref || "Direct"}</td>
+                    <td className="py-2.5 pr-4 text-[#8a837c]">
+                      {v.src ? <span className="text-[#ffab1a]">#{v.src}</span> : v.ref || "Direct"}
+                      {v.src && v.ref && <span className="block text-xs text-[#6b645e]">via {v.ref}</span>}
+                    </td>
                   </tr>
                 ))}
               </tbody>

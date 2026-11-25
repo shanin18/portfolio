@@ -150,6 +150,7 @@ const ProjectCard = ({ project, index = 0, featured = false }) => {
             {liveLink && (
               <a
                 href={liveLink}
+                data-track={`Live demo: ${title}`}
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-purple-500 to-cyan-500 px-4 py-2 font-body text-sm font-semibold text-white transition-all hover:shadow-[0_0_20px_rgba(255,85,51,0.4)] hover:scale-[1.02]"
@@ -161,6 +162,7 @@ const ProjectCard = ({ project, index = 0, featured = false }) => {
             {clientSide && (
               <a
                 href={clientSide}
+                data-track={`GitHub: ${title}`}
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 rounded-xl border border-white/[0.1] bg-white/[0.03] px-4 py-2 font-body text-sm font-medium text-white/60 transition-all hover:border-white/20 hover:text-white"
@@ -172,6 +174,7 @@ const ProjectCard = ({ project, index = 0, featured = false }) => {
             {serverSide && (
               <a
                 href={serverSide}
+                data-track={`GitHub (server): ${title}`}
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 rounded-xl border border-white/[0.1] bg-white/[0.03] px-4 py-2 font-body text-sm font-medium text-white/60 transition-all hover:border-white/20 hover:text-white"
