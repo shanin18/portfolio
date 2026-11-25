@@ -19,10 +19,22 @@ import deshiImg from "../assets/thumbs/deshi-simulator-thumb.jpg";
 import officeImg from "../assets/thumbs/office-3d-thumb.jpg";
 import foodImg from "../assets/thumbs/food-delivery-thumb.jpg";
 import salonImg from "../assets/thumbs/farzana-redesign-thumb.jpg";
+import blivImg from "../assets/thumbs/bliv-thumb.jpg";
 
 const filterOptions = ["All", "Next.js", "React", "3D / WebGL", "Mobile", "HTML/CSS"];
 
 const projects = [
+  {
+    id: 25,
+    title: "Bliv Clinical Workspace",
+    images: [blivImg],
+    summery:
+      "A telehealth MVP for clinics, built as a working response to a client brief. Clinicians sign in to manage encrypted patient profiles and medical records with file attachments, book appointments on a shared calendar linked to each patient file, and every view and change is written to an audit trail. It also exposes a REST API and FHIR R4 endpoints for future integrations.",
+    liveLink: "https://bliv-beige.vercel.app",
+    technology: "Next.js",
+    impact: "Self-initiated MVP: all five brief deliverables shipped and verified by 42 automated browser checks.",
+    stack: ["Next.js 16", "TypeScript", "Node.js", "Prisma", "PostgreSQL", "AES-256 encryption", "FHIR R4", "Vercel"],
+  },
   {
     id: 17,
     title: "Global Admission Platform",
@@ -305,6 +317,7 @@ const projects = [
 const featuredOrder = [
   "Global Admission Platform",
   "GadgetGallery",
+  "Bliv Clinical Workspace",
   "Pocket Ledger",
   "BankLopedia",
   "Eye Solutions",
