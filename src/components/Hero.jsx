@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import { useRef } from "react";
-import { FiArrowRight } from "react-icons/fi";
+import { FiArrowRight, FiDownload } from "react-icons/fi";
 import HeroStack from "./HeroStack";
+import { useResume } from "../lib/resume";
 
 const stats = [
   { value: "50+", label: "Sites Built" },
@@ -46,6 +47,7 @@ const AnimatedWords = ({ text, className, baseDelay = 0 }) => {
 
 const Hero = () => {
   const ref = useRef(null);
+  const resume = useResume();
 
   return (
     <section
@@ -135,6 +137,21 @@ const Hero = () => {
           <motion.a href="#contact" whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="btn-ghost font-body">
             Contact Me
           </motion.a>
+
+          {resume && (
+            <motion.a
+              href={resume}
+              target="_blank"
+              rel="noreferrer"
+              data-track="Résumé (hero)"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              className="btn-ghost font-body"
+            >
+              <FiDownload />
+              Résumé
+            </motion.a>
+          )}
         </motion.div>
 
         {/* Stats */}

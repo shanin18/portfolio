@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, useScroll, AnimatePresence } from "framer-motion";
 import { HiOutlineBars3, HiOutlineXMark } from "react-icons/hi2";
+import { useResume } from "../lib/resume";
 
 const navItems = [
   { id: "home", label: "Home", href: "#" },
@@ -24,6 +25,7 @@ const Logo = () => (
 const Navbar = () => {
   const [active, setActive] = useState("home");
   const [open, setOpen] = useState(false);
+  const resume = useResume();
   const [scrolled, setScrolled] = useState(false);
   const { scrollYProgress } = useScroll();
 
@@ -102,6 +104,17 @@ const Navbar = () => {
           </ul>
 
           <div className="flex items-center gap-4">
+            {resume && (
+              <a
+                href={resume}
+                target="_blank"
+                rel="noreferrer"
+                data-track="Résumé (navbar)"
+                className="hidden text-sm font-medium text-white/60 transition-colors hover:text-white lg:inline-flex"
+              >
+                Résumé
+              </a>
+            )}
             <a
               href="#contact"
               onClick={() => setActive("contact")}
@@ -183,6 +196,17 @@ const Navbar = () => {
                 >
                   Let&apos;s Talk
                 </a>
+                {resume && (
+                  <a
+                    href={resume}
+                    target="_blank"
+                    rel="noreferrer"
+                    data-track="Résumé (mobile menu)"
+                    className="btn-ghost mt-3 flex justify-center"
+                  >
+                    Download résumé
+                  </a>
+                )}
               </div>
             </motion.div>
           </>

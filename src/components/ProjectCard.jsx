@@ -1,11 +1,16 @@
 import { useState } from "react";
-import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
-import { FiExternalLink, FiGithub } from "react-icons/fi";
+import { createPortal } from "react-dom";
+import { motion, useMotionValue, useTransform, useSpring, AnimatePresence } from "framer-motion";
+import { FiBookOpen, FiExternalLink, FiGithub } from "react-icons/fi";
+import CaseStudy from "./CaseStudy";
+import caseStudies from "../data/caseStudies";
+import { trackClick } from "../lib/track";
 
 const canHover = typeof window !== "undefined" && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
 const ProjectCard = ({ project, index = 0, featured = false }) => {
   const [expanded, setExpanded] = useState(false);
+  const [studyOpen, setStudyOpen] = useState(false);
   const {
     images,
     title,
@@ -19,6 +24,8 @@ const ProjectCard = ({ project, index = 0, featured = false }) => {
     status,
   } = project;
 
+  const study = caseStudies[title];
+  const hasStudy = study?.results?.length > 0;
   const thumbnail = images?.[0];
   const limit = featured ? 320 : 135;
   const shouldTruncate = summery.length > limit;
@@ -142,6 +149,18 @@ const ProjectCard = ({ project, index = 0, featured = false }) => {
 
           {/* Links */}
           <div className="mt-6 flex flex-wrap gap-3">
+            {hasStudy && (
+              <button
+                onClick={() => {
+                  setStudyOpen(true);
+                  trackClick(`Case study: ${title}`);
+                }}
+                className="inline-flex items-center gap-2 rounded-xl border border-[#ff5533]/40 bg-[#ff5533]/10 px-4 py-2 font-body text-sm font-semibold text-[#ffa58f] transition-all hover:border-[#ff5533]/70 hover:text-white"
+              >
+                <FiBookOpen className="h-3.5 w-3.5" />
+                Case study
+              </button>
+            )}
             {!liveLink && status && (
               <span className="inline-flex items-center gap-2 rounded-xl border border-amber-500/25 bg-amber-500/10 px-4 py-2 font-body text-sm font-medium text-amber-300/90">
                 {status}
@@ -186,6 +205,14 @@ const ProjectCard = ({ project, index = 0, featured = false }) => {
           </div>
         </div>
       </motion.article>
+      {/* Portal: the card is 3D-transformed, which would otherwise trap a fixed overlay inside it. */}
+      {hasStudy &&
+        createPortal(
+          <AnimatePresence>
+            {studyOpen && <CaseStudy project={project} study={study} onClose={() => setStudyOpen(false)} />}
+          </AnimatePresence>,
+          document.body,
+        )}
     </motion.div>
   );
 };

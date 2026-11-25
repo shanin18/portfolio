@@ -20,8 +20,12 @@ const countryName = (code) => {
     return code;
   }
 };
-const flag = (code) =>
-  code && /^[A-Z]{2}$/.test(code) ? String.fromCodePoint(...[...code].map((c) => 0x1f1a5 + c.charCodeAt(0))) : "🌐";
+// Country-code badge (flag emoji don't render on Windows).
+const Flag = ({ code }) => (
+  <span className="mr-1.5 inline-block w-7 rounded border border-white/10 bg-white/[0.04] text-center font-mono text-[10px] leading-4 text-[#a8a29e]">
+    {code && /^[A-Z]{2}$/.test(code) ? code : "--"}
+  </span>
+);
 
 const dayKey = (d) => d.toLocaleDateString("en-CA", { timeZone: TZ });
 const fmtTime = (t) => new Date(t).toLocaleString("en-GB", { timeZone: TZ, dateStyle: "medium", timeStyle: "short" });
@@ -57,7 +61,7 @@ function Card({ title, children, right }) {
 }
 
 // Single-series horizontal bars: one hue, values in ink, row is the hover target.
-function BarList({ data, limit = 8, label = (k) => k }) {
+function BarList({ data, limit = 8, label = (k) => k, icon }) {
   const rows = Object.entries(data).sort((a, b) => b[1] - a[1]);
   const shown = rows.slice(0, limit);
   const rest = rows.slice(limit).reduce((n, [, v]) => n + v, 0);
@@ -70,7 +74,10 @@ function BarList({ data, limit = 8, label = (k) => k }) {
       {shown.map(([k, v]) => (
         <li key={k} className="group" title={`${k === "__other" ? "Other" : label(k)}: ${v} visits (${Math.round((v / total) * 100)}%)`}>
           <div className="mb-1 flex justify-between gap-3 text-sm">
-            <span className="truncate text-[#e7e2dc]">{k === "__other" ? "Other" : label(k)}</span>
+            <span className="truncate text-[#e7e2dc]">
+              {icon && k !== "__other" && icon(k)}
+              {k === "__other" ? "Other" : label(k)}
+            </span>
             <span className="tabular-nums text-[#8a837c] group-hover:text-white">
               {v} <span className="text-xs">· {Math.round((v / total) * 100)}%</span>
             </span>
@@ -276,7 +283,7 @@ export default function Stats() {
 
       <div className="mt-4 grid gap-4 md:grid-cols-2">
         <Card title="Countries">
-          <BarList data={data.country} label={(c) => `${flag(c)}  ${countryName(c)}`} />
+          <BarList data={data.country} label={countryName} icon={(c) => <Flag code={c} />} />
         </Card>
         <Card title="Cities" right={<span className="text-xs text-[#6b645e]">last {data.visits.length} visits</span>}>
           <BarList data={derived.cities} />
@@ -328,7 +335,8 @@ export default function Stats() {
                 <li key={e.t + e.vid + i} className="flex items-center justify-between gap-4 py-2.5 text-sm">
                   <span className="min-w-0 truncate text-[#e7e2dc]">{e.label}</span>
                   <span className="shrink-0 text-right text-xs text-[#8a837c]">
-                    {e.who ? <span className="text-white">{e.who.name}</span> : `Visitor #${e.vid.slice(0, 4)}`} · {flag(e.country)} {place(e)} · {e.device} ·{" "}
+                    {e.who ? <span className="text-white">{e.who.name}</span> : `Visitor #${e.vid.slice(0, 4)}`} · <Flag code={e.country} />
+                    {place(e)} · {e.device} ·{" "}
                     <span title={fmtTime(e.t)}>{ago(e.t)}</span>
                   </span>
                 </li>
@@ -386,7 +394,8 @@ export default function Stats() {
                       )}
                     </td>
                     <td className="py-2.5 pr-4 text-[#e7e2dc]">
-                      {flag(v.country)} {place(v)}
+                      <Flag code={v.country} />
+                      {place(v)}
                       {v.region && <span className="text-xs text-[#6b645e]"> · {v.region}</span>}
                     </td>
                     <td className="py-2.5 pr-4 text-[#e7e2dc]">
