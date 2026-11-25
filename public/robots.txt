@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /stats
+Disallow: /api/
+
+Sitemap: https://shamim-pi.vercel.app/sitemap.xml

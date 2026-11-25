@@ -122,26 +122,19 @@ const Hero = () => {
           transition={{ duration: 0.6, delay: 1.05 }}
           className="mt-10 flex flex-wrap gap-4"
         >
-          <a href="#projects">
-            <motion.button
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-              className="btn-gradient font-body"
-            >
-              View Work
-              <FiArrowRight className="transition-transform group-hover:translate-x-1" />
-            </motion.button>
-          </a>
+          <motion.a
+            href="#projects"
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            className="group btn-gradient font-body"
+          >
+            View Work
+            <FiArrowRight className="transition-transform group-hover:translate-x-1" />
+          </motion.a>
 
-          <a href="#contact">
-            <motion.button
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-              className="btn-ghost font-body"
-            >
-              Contact Me
-            </motion.button>
-          </a>
+          <motion.a href="#contact" whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="btn-ghost font-body">
+            Contact Me
+          </motion.a>
         </motion.div>
 
         {/* Stats */}
