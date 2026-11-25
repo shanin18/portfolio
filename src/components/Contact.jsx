@@ -4,6 +4,7 @@ import { FaGithub, FaLinkedin, FaDiscord } from "react-icons/fa";
 import { FiMail, FiSend } from "react-icons/fi";
 import { notify } from "./Toast";
 import Reveal from "./Reveal";
+import { getVisitorId } from "../lib/track";
 
 const socials = [
   { icon: FaLinkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/shamim-hosan/", color: "hover:text-blue-400 hover:border-blue-400/40" },
@@ -33,6 +34,7 @@ const Contact = () => {
           email: data.get("user_email"),
           message: data.get("message"),
           _honey: data.get("_honey"),
+          vid: getVisitorId(),
         }),
       });
       const json = await res.json().catch(() => ({}));

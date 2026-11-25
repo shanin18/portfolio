@@ -2,6 +2,7 @@
 // Sends the portfolio contact form to your inbox over SMTP (Nodemailer) with a branded HTML template.
 // Env vars: SMTP_USER, SMTP_PASS (Gmail: an App Password), optional SMTP_HOST, SMTP_PORT, CONTACT_TO.
 import nodemailer from "nodemailer";
+import { K, isVisitorId, pipeline, redisReady } from "./_lib/redis.js";
 
 const TO = process.env.CONTACT_TO || "shamimhosan02@gmail.com";
 const HOST = process.env.SMTP_HOST || "smtp.gmail.com";
@@ -103,6 +104,10 @@ ${sentAt}`,
   } catch (err) {
     console.error("SMTP error", err && err.message);
     return res.status(502).json({ ok: false, error: "Could not send right now." });
+  }
+  // Put a name to this visitor's visits on the /stats dashboard. Never blocks the reply on failure.
+  if (redisReady() && isVisitorId(body.vid)) {
+    await pipeline([["HSET", K.names, body.vid, JSON.stringify({ name, email })]]).catch((e) => console.error("names error", e && e.message));
   }
   return res.status(200).json({ ok: true });
 }
